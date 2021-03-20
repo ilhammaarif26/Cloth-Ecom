@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.admin_dashboard');
+        $users = User::all();
+        return view('admin.admin_dashboard', compact('users'));
     }
 
     public function settings()
@@ -53,12 +55,14 @@ class AdminController extends Controller
     public function checkCurrentPwd(Request $request)
     {
         $data = $request->all();
-        $user = Auth::guard('admin')->user();
-        echo "<pre>";
-        print_r($data);
-        die;
-        echo "<pre>";
-        print_r($user);
-        die;
+        $user = Auth::guard('admin')->user()->password;
+        // echo "<pre>";
+        // print_r($user);
+        // die;
+        if (Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
     }
 }
