@@ -30,5 +30,6 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::get('settings', [AdminController::class, 'settings']);
         Route::get('logout', [AdminController::class, 'logout']);
         Route::post('check-current-pwd', [AdminController::class, 'checkCurrentPwd']);
+        Route::post('update-current-pwd', [AdminController::class, 'updateCurrentPwd']);
     });
 });

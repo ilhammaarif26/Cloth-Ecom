@@ -33,15 +33,32 @@
                   <h3 class="card-title">Update Password</h3>
                 </div>
                 <!-- /.card-header -->
+
+                @if (Session::has('error_message'))
+                    <div class="alert alert-danger alert-dismissable fade show">
+                      {{Session::get('error_message')}}
+                      <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                @endif
+                @if (Session::has('success_message'))
+                <div class="alert alert-info alert-dismissable fade show">
+                  {{Session::get('success_message')}}
+                  <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            @endif
                 <!-- form start -->
-                <form role="form" method="POST" action="{{url('/admin/check-current-pwd')}}" name="updatePasswordForm" id="updatePasswordForm">
+                <form role="form" method="POST" action="{{url('/admin/update-current-pwd')}}" name="updatePasswordForm" id="updatePasswordForm">
                   @csrf
                   <div class="card-body">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleInputEmail1">Admin Name</label>
                         <input type="email" class="form-control" value="{{$adminDetails->name}}" placeholder="enter admin name " 
                         name="admin_name" id="admin_name">
-                      </div>
+                    </div> --}}
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
                       <input type="email" class="form-control" value="{{$adminDetails->email}}" readonly="" >
@@ -52,21 +69,24 @@
                       </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Current Password</label>
-                      <input type="password" class="form-control" placeholder=" Enter currentPassword" name="current_pwd" id="current_pwd">
+                      <input type="password" class="form-control" placeholder=" Enter currentPassword" name="current_pwd" id="current_pwd"
+                      required="">
                       <span id="checkCurrentPwd"></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">New Password</label>
-                        <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Enter new password">
+                        <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Enter new password"
+                        required="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder=" Confirm new password">
+                        <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder=" Confirm new password"
+                        required="">
                     </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                   </div>
                 </form>
               </div>

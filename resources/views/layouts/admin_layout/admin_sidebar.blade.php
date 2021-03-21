@@ -15,7 +15,7 @@
           <img src="{{asset('images/admin_images/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"></a>
+          <a href="#" class="d-block">{{Auth::guard('admin')->user()->name}}</a>
         </div>
       </div>
 
