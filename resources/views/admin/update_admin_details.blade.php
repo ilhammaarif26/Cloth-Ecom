@@ -30,12 +30,12 @@
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Update Password</h3>
+                  <h3 class="card-title">Update Admin Details</h3>
                 </div>
                 <!-- /.card-header -->
 
                 @if (Session::has('error_message'))
-                    <div class="alert alert-danger alert-dismissable fade show">
+                    <div class="alert alert-danger alert-dismissable fade show" style="margin-top: 10px;">
                       {{Session::get('error_message')}}
                       <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -43,45 +43,52 @@
                     </div>
                 @endif
                 @if (Session::has('success_message'))
-                <div class="alert alert-info alert-dismissable fade show">
-                  {{Session::get('success_message')}}
-                  <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+                  <div class="alert alert-info alert-dismissable fade show" style="margin-top: 10px;">
+                    {{Session::get('success_message')}}
+                    <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                @endif
+                @if ($errors->any())
+                  <div class="alert alert-danger" style="margin-top: 10px;">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>      
+                       @endforeach   
+                    </ul> 
+                  </div>
                 @endif
                 <!-- form start -->
-                <form role="form" method="POST" action="{{url('/admin/update-current-pwd')}}" name="updatePasswordForm" id="updatePasswordForm">
+                <form role="form" method="POST" action="{{url('/admin/update-admin-details')}}" name="updateAdminDetails" id="updateAdminDetails"
+                enctype="multipart/form-data">
                   @csrf
                   <div class="card-body">
-                    {{-- <div class="form-group">
-                        <label for="exampleInputEmail1">Admin Name</label>
-                        <input type="email" class="form-control" value="{{$adminDetails->name}}" placeholder="enter admin name " 
-                        name="admin_name" id="admin_name">
-                    </div> --}}
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
-                      <input type="email" class="form-control" value="{{$adminDetails->email}}" readonly="" >
+                      <input type="email" class="form-control" value="{{Auth::guard('admin')->user()->email}}" readonly="" >
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Admin type</label>
-                        <input type="email" class="form-control" value="{{$adminDetails->type}}" readonly="" >
-                      </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Current Password</label>
-                      <input type="password" class="form-control" placeholder=" Enter currentPassword" name="current_pwd" id="current_pwd"
-                      required="">
-                      <span id="checkCurrentPwd"></span>
+                      <label for="exampleInputEmail1">Admin type</label>
+                      <input type="email" class="form-control" value="{{Auth::guard('admin')->user()->type}}" readonly="" >
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">New Password</label>
-                        <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Enter new password"
-                        required="">
+                      <label for="admin_name">Name</label>
+                      <input type="text" class="form-control" placeholder=" enter admi name" name="admin_name" id="admin_name"
+                      required="" value="{{Auth::guard('admin')->user()->name}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder=" Confirm new password"
-                        required="">
+                        <label for="admin_mobile">Mobile</label>
+                        <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" placeholder="enter admin mobile"
+                        required="" value="{{Auth::guard('admin')->user()->mobile}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin_image">Image</label>
+                        <input type="file" class="form-control" name="admin_image" id="admin_image" accept="image/*">
+                        @if (!empty(Auth::guard('admin')->user()->images))
+                            <a target="_blank" href="{{url('images/admin_images/admin_photos/' . Auth::guard('admin')->user()->images)}}">View Image</a>
+                            <input type="hidden" name="current_admin_image" value="{{Auth::guard('admin')->user()->image}}">
+                        @endif
                     </div>
                   </div>
                   <!-- /.card-body -->

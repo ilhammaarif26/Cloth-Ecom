@@ -8,18 +8,20 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        $users = User::all();
-        return view('admin.admin_dashboard', compact('users'));
+        Session::put('page', 'dashboard');
+        return view('admin.admin_dashboard');
     }
 
     public function settings()
     {
+        Session::put('page', 'settings');
         $adminDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first();
         return view('admin.admin_settings', compact('adminDetails'));
     }
@@ -46,12 +48,14 @@ class AdminController extends Controller
         return view('admin.admin_login');
     }
 
+    // funtion for logout
     public function logout()
     {
         Auth::guard('admin')->logout();
         return redirect('/admin');
     }
 
+    // function for check current pwd
     public function checkCurrentPwd(Request $request)
     {
         $data = $request->all();
@@ -66,6 +70,7 @@ class AdminController extends Controller
         }
     }
 
+    // function for update pwd
     public function updateCurrentPwd(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -86,5 +91,57 @@ class AdminController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    // function for update admin details
+    public function updateAdminDetails(Request $request)
+    {
+        Session::put('page', 'update-admin-details');
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            //dd($data);
+            $rules = [
+                'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'admin_mobile' => 'required|numeric',
+                'admin_image' => 'mimes:jpeg,jpg,png,gif,svg|max:2048'
+            ];
+            $customMessages = [
+                'admin_name.required' => 'name is required',
+                'admin_name.alpha' => 'valid name is required',
+                'admin_mobile.required' => 'mobile is required',
+                'admin_image.image' => 'valid image is required'
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            // upload image 
+            if ($request->hasFile('admin_image')) {
+                $image_temp = $request->file('admin_image');
+                if ($image_temp->isValid()) {
+
+                    // get image extension
+                    $extension = $image_temp->getClientOriginalExtension();
+
+                    // generate new image name 
+                    $imageName = rand(111, 99999) . '.' . $extension;
+                    $imagePath = 'images/admin_images/admin_photos/' . $imageName;
+
+                    // upload image
+                    Image::make($image_temp)->resize(400, 400)->save($imagePath);
+                } else if (!empty($data['current_admin_image'])) {
+                    $imageName = $data['current_admin_image'];
+                } else {
+                    $imageName = "";
+                }
+            }
+
+            // update admin details 
+            Admin::where('email', Auth::guard('admin')->user()->email)->update([
+                'name' => $data['admin_name'], 'mobile' => $data['admin_mobile'], 'images' => $imageName
+            ]);
+            session()->flash('success_message', 'admin details updated successfully');
+            return redirect()->back();
+        }
+        return view('admin.update_admin_details');
     }
 }
