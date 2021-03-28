@@ -37,11 +37,23 @@ class CategoryController extends Controller
     public function addEditCategory(Request $request, $id = null)
     {
         if ($id == "") {
-            $title = "add category";
+            $title = "Add Category";
             // function add category
             $category = new Category;
+            $categoryData = array();
+            $getCategories = array();
+            $message = "Category added successfully";
         } else {
-            $title = "edit category";
+            // function edit category
+            $title = "Edit Category";
+            $categoryData = Category::where('id', $id)->first();
+            $categoryData = json_decode(json_encode($categoryData), true);
+            // untuk menampilkan data parent id di form edit 
+            $getCategories = Category::with('subcategories')->where(['parent_id' => 0, 'section_id' => $categoryData['section_id']])->get();
+            $getCategories = json_decode(json_encode($getCategories), true);
+
+            $category = Category::find($id);
+            $message = "Category updated successfully";
         }
 
         if ($request->isMethod('post')) {
@@ -92,14 +104,14 @@ class CategoryController extends Controller
             $category->status = 1;
             $category->save();
 
-            session()->flash('success_message', 'category added succesfully');
+            session()->flash('success_message', $message);
             return redirect('admin/categories');
         }
 
         // get sections
         $getSections = Section::get();
 
-        return view('admin.categories.add_edit_category', compact('title', 'getSections'));
+        return view('admin.categories.add_edit_category', compact('title', 'getSections', 'categoryData', 'getCategories'));
     }
 
     // tambahkan tingkat kategori / append category level

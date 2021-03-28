@@ -42,27 +42,31 @@
                 <table id="categories" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>No</th>
                     <th>ID</th>
                     <th>Category</th>
                     <th>Parent Category</th>
                     <th>Section</th>
                     <th>URL</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
+                  <?php $number = 1; ?>
                   @foreach ($categories as $category)
-                  @if (!isset($category->parentcategory->category_name))
-                      <?php $parent_category = "parent"; ?>
-                  @else
-                      <?php $parent_category = $category->parentcategory->category_name; ?>
-                  @endif
+                    @if (!isset($category->parentcategory->category_name))
+                        <?php $parent_category = "parent"; ?>
+                    @else
+                        <?php $parent_category = $category->parentcategory->category_name; ?>
+                    @endif
                     <tr>
+                        <td>{{$number++}}</td>
                         <td>{{$category->id}}</td>
                         <td>{{$category->category_name}}</td>
                         <td>{{$parent_category}}</td>
                         <td>{{$category->section->name}}</td>
-                        <td>{{$category->url}}</td>
+                        <td>{{$category->url}}</td> 
                         <td>
                             @if ($category->status == 1)
                                 <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" 
@@ -71,6 +75,9 @@
                             <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" 
                                 href="javascript:void(0)">Inactive</a>
                             @endif 
+                        </td>
+                        <td>
+                          <a href="{{url('admin/add-edit-category/' .$category->id)}}">Edit</a>
                         </td>
                     </tr>
                   @endforeach
