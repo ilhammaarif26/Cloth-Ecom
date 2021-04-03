@@ -129,6 +129,7 @@ class CategoryController extends Controller
         }
     }
 
+    // delete category image
     public function deleteCategoryImage($id)
     {
         // get category image

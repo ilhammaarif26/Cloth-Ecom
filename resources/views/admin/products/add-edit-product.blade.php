@@ -155,18 +155,17 @@
                             </div>
                         </div>
                         <p>Recommended image size : 1040 x 1200 px</p>
-                        {{-- @if (!empty($productData['main_image']))
+                        @if (!empty($productData['main_image']))
                         <div class="row">
                             <div class="col-sm-4 text-center">
-                            <img src="{{asset('images/product_images/' .$productData['product_image'])}}" class="mt-2 mb-2"
+                            <img src="{{asset('images/product_images/small/' .$productData['main_image'])}}" class="mb-2"
                             style="width: 150px; height: 150px;"/> <br>
-                            <a href="javascript:void(0)" record="product-image" recordid="{{$productData['id']}}" 
-                                <?php /*href="{{url('admin/delete-product-image/'.$productData['id'])}}" */ ?> 
+                            <a href="javascript:void(0)" record="product-image" recordid="{{$productData['id']}}"
                                 class="btn btn-sm btn-danger rounded confirmDelete">delete image
                             </a>
                             </div>
                         </div>   
-                        @endif --}}
+                        @endif
                     </div>
                 </div>
               </div>
@@ -177,12 +176,21 @@
                         <div class="input-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="product_video" name="product_video">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            <label class="custom-file-label" for="product_video">Choose file</label>
                         </div>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="">Upload</span>
                             </div>
                         </div>
+                        @if (!empty($productData['product_video']))
+                            <div class="mt-2">
+                                <a href="{{url('videos/product_videos/' . $productData['product_video'])}}" 
+                                class="btn btn-sm btn-primary" download="">Download</a>
+                                <a href="javascript:void(0)" record="product-video" recordid="{{$productData['id']}}"
+                                class="btn btn-sm btn-danger rounded confirmDelete">delete video
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="description">Product Description</label>

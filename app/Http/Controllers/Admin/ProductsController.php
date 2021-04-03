@@ -212,4 +212,55 @@ class ProductsController extends Controller
             'productData'
         ));
     }
+
+    // delete product image
+    public function deleteProductImage($id)
+    {
+        // get product image
+        $productImage = Product::select('main_image')->where('id', $id)->first();
+
+        // get main_image path 
+        $small_image_path = 'images/product_images/small/';
+        $medium_image_path = 'images/product_images/medium/';
+        $large_image_path = 'images/product_images/large/';
+
+        // Delete category image from main_image folder if exist (folder : small, medium, large)
+        if (file_exists($small_image_path . $productImage->main_image)) {
+            unlink($small_image_path . $productImage->main_image);
+        }
+        if (file_exists($medium_image_path . $productImage->main_image)) {
+            unlink($medium_image_path . $productImage->main_image);
+        }
+        if (file_exists($large_image_path . $productImage->main_image)) {
+            unlink($large_image_path . $productImage->main_image);
+        }
+        // delete category_image from product table 
+        Product::where('id', $id)->update(['main_image' => ""]);
+
+        $message = "Product image has been deleted";
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
+    // delete product video
+    public function deleteProductVideo($id)
+    {
+        // get product video
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+
+        // get product video path 
+        $product_video_path = 'videos/product_videos/';
+
+        // Delete product video from main_image folder if exist
+        if (file_exists($product_video_path . $productVideo->product_video)) {
+            unlink($product_video_path . $productVideo->product_video);
+        }
+
+        // delete category_image from product table 
+        Product::where('id', $id)->update(['product_video' => '']);
+
+        $message = "Product video has been deleted";
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
 }
