@@ -35,13 +35,23 @@
             @endif
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Categories</h3>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3 class="card-title">Categories</h3>
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="{{ url('admin/add-edit-category')}}" style="max-width: 150px; display: inline-block; float: right;" 
+                class="btn btn-primary">Add Category</a>
+                  </div>
+                </div>
+                
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="categories" class="table table-bordered table-striped">
+                <table id="categories" class="table table-bordered table-striped" >
                   <thead>
-                  <tr>
+                  <tr class="text-center">
                     <th>No</th>
                     <th>ID</th>
                     <th>Category</th>
@@ -49,10 +59,11 @@
                     <th>Section</th>
                     <th>URL</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Image</th>
+                    <th>Action</th>  
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="text-center">
                   <?php $number = 1; ?>
                   @foreach ($categories as $category)
                     @if (!isset($category->parentcategory->category_name))
@@ -70,23 +81,37 @@
                         <td>
                             @if ($category->status == 1)
                                 <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" 
-                                   href="javascript:void(0)">Active</a>
+                                  href="javascript:void(0)">Active</a>
                             @else
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" 
-                                href="javascript:void(0)">Inactive</a>
+                                <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" 
+                                  href="javascript:void(0)" >Inactive</a>
                             @endif 
                         </td>
                         <td>
-                          <a href="{{url('admin/add-edit-category/' .$category->id)}}">Edit</a>
+                          @if (!empty($category->category_image))
+                              <img src="{{asset('images/category_images/' .$category->category_image)}}" class="mt-2 mb-2"
+                              style="width: 50px; height: 50px;"/>
+                          @else
+                              <img src="{{asset('images/category_images/no-image.png')}}" class="mt-2 mb-2"
+                              style="width: 50px; height: 50px;"/>
+                          @endif
+                         
+                        </td>
+                        <td>
+                          <a href="{{url('admin/add-edit-category/' .$category->id)}}" class="btn btn-sm btn-info">Edit</a>
+                          &nbsp;&nbsp;
+                          <a <?php /* href="{{url('admin/delete-category/' .$category->id)}}" */ ?> href="javascript:void(0)" class="btn btn-sm btn-danger confirmDelete" 
+                            record="category" recordid="{{$category->id}}" >Delete</a>
                         </td>
                     </tr>
                   @endforeach
                 
                 </table>
               </div>
+             
               <!-- /.card-body -->
             </div>
-            <a href="{{ url('admin/add-edit-category')}}" style="max-width: 150px; display: inline-block;  float:right;" class="btn btn-primary">add category</a>
+            
             <!-- /.card -->
           </div>
           <!-- /.col -->

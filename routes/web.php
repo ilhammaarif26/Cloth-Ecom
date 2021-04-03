@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,12 +44,24 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // categories
         Route::get('categories', [CategoryController::class, 'categories']);
+        // update category status
         Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus']);
-
         // add and edit category 
         Route::match(['get', 'post'], 'add-edit-category/{id?}',  [CategoryController::class, 'addEditCategory']);
-
         // append category level
         Route::post('append-categories-level', [CategoryController::class, 'appendCategoryLevel']);
+        // delete category imgae 
+        Route::get('delete-category-image/{id}', [CategoryController::class, 'deleteCategoryImage']);
+        // delete categort
+        Route::get('delete-category/{id}', [CategoryController::class, 'deleteCategory']);
+
+        // products 
+        Route::get('products', [ProductsController::class, 'products']);
+        // update product status
+        Route::post('update-product-status', [ProductsController::class, 'updateProductStatus']);
+        // delete product
+        Route::get('delete-product/{id}', [ProductsController::class, 'deleteProduct']);
+        // add and edit product
+        Route::match(['get', 'post'], 'add-edit-product/{id?}', [ProductsController::class, 'addEditProduct']);
     });
 });

@@ -83,6 +83,10 @@
       "responsive": true,
       "autoWidth": false,
     });
+    $("#products").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
   });
 </script>
 <!-- ChartJS -->
@@ -112,6 +116,9 @@
 
 {{-- custom admin js --}}
 <script src="{{asset('js/admin_js/admin_script.js')}}"></script>
+
+{{-- sweet alert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 </body>
 </html>

@@ -28,6 +28,14 @@
                 </ul> 
             </div>
         @endif
+        @if (Session::has('success_message'))
+        <div class="alert alert-info alert-dismissable fade show" style="margin-top: 10px;">
+          {{Session::get('success_message')}}
+          <button type="buttob" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        @endif
         <form name="categoryForm" id="CategoryForm" @if (empty($categoryData['id']))
             action="{{url('admin/add-edit-category')}}"
         @else
@@ -85,6 +93,18 @@
                         <span class="input-group-text" id="">Upload</span>
                       </div>
                     </div>
+                    @if (!empty($categoryData['category_image']))
+                      <div class="row">
+                        <div class="col-sm-4 text-center">
+                          <img src="{{asset('images/category_images/' .$categoryData['category_image'])}}" class="mt-2 mb-2"
+                          style="width: 150px; height: 150px;"/> <br>
+                          <a href="javascript:void(0)" record="category-image" recordid="{{$categoryData['id']}}" 
+                            <?php /*href="{{url('admin/delete-category-image/'.$categoryData['id'])}}" */ ?> 
+                            class="btn btn-sm btn-danger rounded confirmDelete">delete image
+                          </a>
+                        </div>
+                      </div>   
+                    @endif
                   </div>
                 </div>
               </div>

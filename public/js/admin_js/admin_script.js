@@ -78,4 +78,53 @@ $(document).ready(function(){
         });
     });
 
+    // $(".confirmDelete").click(function(){
+    //     var name = $(this).attr("name");
+    //     if(confirm("are you sure to delete this " +name+ " ?"))
+    //     {
+    //         return true; 
+    //     }
+    //     return false;
+    // });
+
+    // update product status 
+    $(".updateProductStatus").click(function(){
+        var status = $(this).text();
+        var product_id = $(this).attr("product_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-product-status',
+            data:{status:status,product_id:product_id},
+            success:function(resp){
+                if(resp['status'] == 0 )
+                {
+                    $('#product-'+product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>Inactive</a>");
+                }else if(resp['status'] == 1 )
+                {
+                    $('#product-'+product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>Active</a>");
+                }
+            }, error:function(){
+                alert('error');
+            }
+        });
+    });
+
+    // confirm delete with javascript
+    $(".confirmDelete").click(function(){
+        var record = $(this).attr("record");
+        var recordid = $(this).attr("recordid");
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',   
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/admin/delete-"+record+"/"+recordid;
+            }
+        })
+    });
+
 });

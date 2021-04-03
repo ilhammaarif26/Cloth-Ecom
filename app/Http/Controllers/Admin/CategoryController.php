@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
+
 class CategoryController extends Controller
 {
     public function categories()
@@ -126,5 +127,35 @@ class CategoryController extends Controller
             // dd($getCategories);
             return view('admin.categories.append_categories_level', compact('getCategories'));
         }
+    }
+
+    public function deleteCategoryImage($id)
+    {
+        // get category image
+        $categoryImage = Category::select('category_image')->where('id', $id)->first();
+
+        // get category image path 
+        $category_image_path = 'images/category_images/';
+
+        // Delete category image from category_image folder if exist
+        if (file_exists($category_image_path . $categoryImage->category_image)) {
+            unlink($category_image_path . $categoryImage->category_image);
+        }
+
+        // delete category_image from categories table 
+        Category::where('id', $id)->update(['category_image' => ""]);
+
+        $message = "Category image has been deleted";
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
+    public function deleteCategory($id)
+    {
+        // delete category
+        Category::where('id', $id)->delete();
+        $message = "Category has been deleted";
+        Session::flash('success_message', $message);
+        return redirect()->back();
     }
 }
