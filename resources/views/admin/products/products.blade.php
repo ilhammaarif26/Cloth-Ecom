@@ -41,18 +41,14 @@
                   </div>
                   <div class="col-sm-6">
                     <a href="{{ url('admin/add-edit-product')}}" style="max-width: 150px; display: inline-block; float: right;" 
-                class="btn btn-primary">Add Product</a>
+                    class="btn btn-primary">Add Product</a>
                   </div>
                 </div>
-                
-                
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
                 <table id="products" class="table table-bordered table-striped" >
                   <thead>
                   <tr>
-                    {{-- <th>No</th> --}}
                     <th>ID</th>
                     <th>Code</th>
                     <th>Name</th>
@@ -64,17 +60,6 @@
                     <th>Discount</th>
                     <th>Status</th>
                     <th>Actions</th>
-                    {{-- <th>Product Video</th>  
-                    <th>Main Image</th>
-                    <th>Description</th>
-                    <th>Wash Care</th>
-                    <th>Fabric</th>
-                    <th>Pattern</th>
-                    <th>Seleeve</th>
-                    <th>Fit</th>
-                    <th>Ocassion</th>
-                    <th>Meta Title</th>
-                    <th>Meta </th> --}}
                   </tr>
                   </thead>
                   <tbody>
@@ -88,9 +73,7 @@
                         <td>{{$product->category->category_name}}</td>
                         <td>{{$product->section->name}}</td>
                         <td>
-                          <?php $product_image_path = "images/product_images/small/" . $product->main_image;
-
-                          ?>
+                          <?php $product_image_path = "images/product_images/small/" . $product->main_image; ?>
                           @if (!empty($product->main_image) && file_exists($product_image_path))
                               <img src="{{asset('images/product_images/small/' .$product->main_image)}}" class="mt-2 mb-2"
                           style="width: 50px; height: 50px;"/>
@@ -111,39 +94,32 @@
                                   href="javascript:void(0)" >Inactive</a>
                             @endif 
                         </td> 
-                        {{-- <td>
-                          @if (!empty($product->product_image))
-                              <img src="{{asset('images/product_images/' .$product->product_image)}}" class="mt-2 mb-2"
-                              style="width: 50px; height: 50px;"/>
-                          @else
-                              <img src="{{asset('images/product_images/no-image.png')}}" class="mt-2 mb-2"
-                              style="width: 50px; height: 50px;"/>
-                          @endif
-                         
-                        </td> --}}
                         <td>
-                          <a href="{{url('admin/add-edit-product/' .$product->id)}}" class="btn btn-sm btn-info">Edit</a>
+                          <a title="Add/Edit Attribute" href="{{url('admin/add-attributes/' .$product->id)}}" style="color: black;">
+                            <i class="far fa-plus-square"></i>
+                          </a>
                           &nbsp;&nbsp;
-                          <a <?php /* href="{{url('admin/delete-product/' .$product->id)}}" */ ?> href="javascript:void(0)" class="btn btn-sm btn-danger confirmDelete" 
-                            record="product" recordid="{{$product->id}}" >Delete</a>
+                          <a title="Add Image" href="{{url('admin/add-images/' .$product->id)}}" style="color: black;">
+                            <i class="fas fa-plus-circle"></i>
+                          </a>
+                          &nbsp;&nbsp; 
+                          <a title="Edit Product" href="{{url('admin/add-edit-product/' .$product->id)}}" style="color: black;">
+                            <i class="far fa-edit"></i>
+                          </a>
+                          &nbsp;&nbsp;
+                          <a title="Delete Product" href="javascript:void(0)" class="confirmDelete" 
+                            record="product" recordid="{{$product->id}}" style="color: black;">
+                            <i class="far fa-trash-alt"></i>
+                          </a>
                         </td>
                     </tr>
                   @endforeach
-                
                 </table>
               </div>
-             
-              <!-- /.card-body -->
             </div>
-            
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 </div>
 @endsection

@@ -109,6 +109,28 @@ $(document).ready(function(){
         });
     });
 
+    // update attribute status 
+    $(".updateAttributeStatus").click(function(){
+        var status = $(this).text();
+        var attribute_id = $(this).attr("attribute_id");
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-attribute-status',
+            data:{status:status,attribute_id:attribute_id},
+            success:function(resp){
+                if(resp['status'] == 0 )
+                {
+                    $('#attribute-'+attribute_id).html("<a class='updateAttributeStatus' href='javascript:void(0)'>Inactive</a>");
+                }else if(resp['status'] == 1 )
+                {
+                    $('#attribute-'+attribute_id).html("<a class='updateAttributeStatus' href='javascript:void(0)'>Active</a>");
+                }
+            }, error:function(){
+                alert('error');
+            }
+        });
+    });
+
     // confirm delete with javascript
     $(".confirmDelete").click(function(){
         var record = $(this).attr("record");
@@ -126,5 +148,31 @@ $(document).ready(function(){
             }
         })
     });
+
+    // product attribute add/remove script
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div class="mt-2"><input type="text" name="size[]" style="width:120px;" placeholder="size"/>&nbsp;<input type="text" name="sku[]" style="width:120px;" placeholder="sku"/>&nbsp;<input type="number" name="price[]" style="width:120px;" placeholder="price"/>&nbsp;<input type="number" name="stock[]" style="width:120px;" placeholder="stock"/><a href="javascript:void(0);" class="remove_button"> &nbsp;Delete<a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+
+    
 
 });

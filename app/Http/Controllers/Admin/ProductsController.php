@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductsAttribute;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -93,11 +94,6 @@ class ProductsController extends Controller
             $this->validate($request, $rules, $customMessages);
 
             // default fill to product table
-            if (empty($data['is_featured'])) {
-                $is_featured = "no";
-            } else {
-                $is_featured = "yes";
-            }
             if (empty($data['fabric'])) {
                 $data['fabric'] = "";
             }
@@ -158,7 +154,7 @@ class ProductsController extends Controller
                     $extension = $video_tmp->getClientOriginalExtension();
                     $videoName = $video_name . '-' . rand() . '.' . $extension;
                     $video_path = 'videos/product_videos/';
-                    $video_tmp->move($video_path, $video_name);
+                    $video_tmp->move($video_path, $videoName);
                     // save video in product table
                     $product->product_video = $videoName;
                 }
@@ -184,7 +180,9 @@ class ProductsController extends Controller
             $product->meta_title = $data['meta_title'];
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
-            $product->is_featured = $is_featured;
+            if (!empty($data['is_featured'])) {
+                $product->is_featured = $data['is_featured'];
+            }
             $product->status = 1;
             $product->save();
             session::flash('success_message', $message);
@@ -256,11 +254,125 @@ class ProductsController extends Controller
             unlink($product_video_path . $productVideo->product_video);
         }
 
-        // delete category_image from product table 
+        // delete product_video from product table 
         Product::where('id', $id)->update(['product_video' => '']);
 
         $message = "Product video has been deleted";
         Session::flash('success_message', $message);
         return redirect()->back();
+    }
+
+    // function add attrubute
+    public function addAttributes(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            // for input many product attrubute
+            foreach ($data['sku'] as $key => $value) {
+                if (!empty($value)) {
+
+                    // SKU already exist check
+                    $attrCountSKU = ProductsAttribute::where('sku', $value)->count();
+                    if ($attrCountSKU > 0) {
+                        $message = 'SKU already exists, please add another SKU';
+                        Session::flash('error_message', $message);
+                        return redirect()->back();
+                    }
+
+                    // size already exist check
+                    $attrCountSKU = ProductsAttribute::where(['product_id' => $id, 'size' => $data['size'][$key]])->count();
+                    if ($attrCountSKU > 0) {
+                        $message = 'Size already exists, please add another size';
+                        Session::flash('error_message', $message);
+                        return redirect()->back();
+                    }
+
+                    $attribute = new ProductsAttribute;
+                    $attribute->product_id = $id;
+                    $attribute->sku = $value;
+                    $attribute->size = $data['size'][$key];
+                    $attribute->price = $data['price'][$key];
+                    $attribute->stock = $data['stock'][$key];
+                    $attribute->status = 1;
+                    $attribute->save();
+                }
+            }
+
+            // success alert  
+            $success_message = 'Product attributes has been added successfully';
+            Session::flash('success_message', $success_message);
+            return redirect()->back();
+        }
+
+        $productData = Product::select(
+            'id',
+            'product_name',
+            'product_code',
+            'product_color',
+            'main_image'
+        )->with('attributes')->find($id);
+        $productData = json_decode(json_encode($productData), true);
+        $title = "Product Attributes";
+        return view('admin.products.add_attributes', compact('productData', 'title'));
+    }
+
+    // update attribute
+    public function editAttributes(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            foreach ($data['attrId'] as $key => $attr) {
+                if (!empty($attr)) {
+                    ProductsAttribute::where(['id' => $data['attrId'][$key]])->update([
+                        'price' => $data['price'][$key],
+                        'stock' => $data['stock'][$key]
+                    ]);
+                }
+            }
+            $success_message = 'Product attributes has been updated';
+            Session::flash('update_message', $success_message);
+            return redirect()->back();
+        }
+    }
+
+    // update attribute status
+    public function updateAttributeStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            if ($data['status'] == "Active") {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+
+            ProductsAttribute::where('id', $data['attribute_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
+        }
+    }
+
+    // delete Attribute
+    public function deleteAttribute($id)
+    {
+        ProductsAttribute::where('id', $id)->delete();
+        $message = "Attribute has been deleted";
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
+    // add product images for display
+    public function addImages($id)
+    {
+        $imageData = Product::with('images')->select(
+            'id',
+            'product_name',
+            'product_code',
+            'product_color',
+            'main_image'
+        )->find($id);
+        $imageData = json_decode(json_encode($imageData), true);
+        $title = "product Images";
+        return view('admin.products.add_images', compact('imageData', 'title'));
     }
 }
