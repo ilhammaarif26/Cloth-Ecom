@@ -79,5 +79,9 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // add product image for display
         Route::match(['get', 'post'], 'add-images/{id}', [ProductsController::class, 'addImages']);
+        // update product images status
+        Route::post('update-image-status', [ProductsController::class, 'updateImageStatus']);
+        // delete product images
+        Route::get('delete-image/{id}', [ProductsController::class, 'deleteImage']);
     });
 });

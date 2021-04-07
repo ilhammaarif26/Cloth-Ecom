@@ -48,7 +48,7 @@
         </div>
         @endif
         {{-- form --}}
-        <form name="addImageForm" id="addImageForm"  method="POST" action="{{url('admin/add-Images' . $imageData['id'])}}" enctype="multipart/form-data">
+        <form name="addImageForm" id="addImageForm"  method="POST" action="{{url('admin/add-images/' . $imageData['id'])}}" enctype="multipart/form-data">
         @csrf
           {{-- <input type="hidden" name="product_id" value="{{$imageData['id']}}"> --}}
           <div class="card card-default">
@@ -84,9 +84,9 @@
                 <div class="col-md-6">
                     <div class="form-group " >
                         <div class="field_wrapper">
-                          <label for="size">Add Attributes</label>
+                          <label for="size">Add Images</label>
                             <div>
-                                <input multiple="" id="image" name="image[]" type="file" name="image[]" value=""  required/>
+                                <input multiple="" id="images" name="images[]" type="file" name="images[]" value=""  required/>
                             </div>
                         </div>
                     </div>
@@ -135,15 +135,15 @@
                         style="width: 120px;" class="shadow-sm bg-body rounded"/>
                     <td>
                       @if ($image['status'] == 1)
-                      <a class="updateImageStatus" id="atrribute-{{ $image['id'] }}" attribute_id="{{ $image['id'] }}" 
+                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
                         href="javascript:void(0)">Active</a>
                       @else
-                          <a class="updateImageStatus" id="attribute-{{ $image['id'] }}" attribute_id="{{ $image['id'] }}" 
-                            href="javascript:void(0)" >Inactive</a>
+                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
+                        href="javascript:void(0)" >Inactive</a>
                       @endif 
                       &nbsp; &nbsp;
                       <a title="Delete Image" href="javascript:void(0)" class="confirmDelete" 
-                      record="attribute" recordid="{{$image['id']}}" style="color: black;">
+                      record="image" recordid="{{$image['id']}}" style="color: black;">
                       <i class="far fa-trash-alt"></i>
                       </a>
                     </td>
