@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Front\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +44,18 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         // sections
         Route::get('sections', [SectionController::class, 'sections']);
         Route::post('update-section-status', [SectionController::class, 'updateSectionStatus']);
+        Route::match(['get', 'post'], 'add-edit-section/{id?}', [SectionController::class, 'addEditSection']);
+        Route::get('delete-section/{id}', [SectionController::class, 'deleteSection']);
+        Route::get('delete-section-image/{id}', [SectionController::class, 'deleteSectionImage']);
+
+        // brand 
+        Route::get('brands', [BrandController::class, 'brands']);
+        // add edit brand
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', [BrandController::class, 'addEditBrand']);
+        // update brand status
+        Route::post('update-brand-status', [BrandController::class, 'updateBrandStatus']);
+        // delete brand
+        Route::get('delete-brand/{id?}', [BrandController::class, 'deleteBrand']);
 
         // categories
         Route::get('categories', [CategoryController::class, 'categories']);
@@ -52,7 +67,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('append-categories-level', [CategoryController::class, 'appendCategoryLevel']);
         // delete category imgae 
         Route::get('delete-category-image/{id}', [CategoryController::class, 'deleteCategoryImage']);
-        // delete categort
+        // delete category
         Route::get('delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
         // products 
@@ -83,5 +98,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('update-image-status', [ProductsController::class, 'updateImageStatus']);
         // delete product images
         Route::get('delete-image/{id}', [ProductsController::class, 'deleteImage']);
+
+        // banner
+        Route::get('banner', [BannerController::class, 'banner']);
+        Route::match(['get', 'post'], 'add-edit-banner/{id?}', [BannerController::class, 'addEditBanner']);
+        Route::post('update-banner-status', [BannerController::class, 'updateBannerStatus']);
+        Route::get('delete-banner/{id}', [BannerController::class, 'deleteBanner']);
+        Route::get('delete-banner-image/{id}', [BannerController::class, 'deleteBannerImage']);
     });
+});
+
+Route::namespace('Front')->group(function () {
+    Route::get('/', [IndexController::class, 'index']);
 });

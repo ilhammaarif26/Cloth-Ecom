@@ -136,10 +136,10 @@
                     <td>
                       @if ($image['status'] == 1)
                         <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
-                        href="javascript:void(0)">Active</a>
+                        href="javascript:void(0)"><i class="fas fa-toggle-on" aria-hidden="true"  status="Active"></i></a>
                       @else
                         <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
-                        href="javascript:void(0)" >Inactive</a>
+                        href="javascript:void(0)" ><i class="fas fa-toggle-off" aria-hidden="true"  status="Inactive"></i></a>
                       @endif 
                       &nbsp; &nbsp;
                       <a title="Delete Image" href="javascript:void(0)" class="confirmDelete" 

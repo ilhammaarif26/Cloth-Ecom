@@ -30,4 +30,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductsImage::class);
     }
+
+    // relation to one table brand
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

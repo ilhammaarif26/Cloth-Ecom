@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
@@ -70,12 +71,9 @@ class ProductsController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
-            // echo "<pre>";
-            // print_r($data);
-            // die;
-            // product validation
             $rules = [
                 'category_id' => 'required',
+                'brand_id' => 'required',
                 'product_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'product_code' => 'required|regex:/^[\w-]*$/',
                 'product_price' => 'required|numeric',
@@ -83,6 +81,7 @@ class ProductsController extends Controller
             ];
             $customMessages = [
                 'category_id.required' => ' category is required',
+                'brand_id' => 'brand is required',
                 'product_name.required' => 'product name is required',
                 'product_name.regex' => 'valid product name is required',
                 'product_code.required' => 'product code is required',
@@ -165,6 +164,7 @@ class ProductsController extends Controller
             $categoryDetails = Category::find($data['category_id']);
             $product->section_id = $categoryDetails['section_id'];
             $product->category_id = $data['category_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -183,6 +183,8 @@ class ProductsController extends Controller
             $product->meta_keywords = $data['meta_keywords'];
             if (!empty($data['is_featured'])) {
                 $product->is_featured = $data['is_featured'];
+            } else {
+                $product->is_featured = "no";
             }
             $product->status = 1;
             $product->save();
@@ -200,6 +202,11 @@ class ProductsController extends Controller
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
+        // get all brands
+        $brands = Brand::where('status', 1)->get();
+        $brands = json_decode(json_encode($brands), true);
+
+
         return view('admin.products.add-edit-product', compact(
             'title',
             'fabricArray',
@@ -208,7 +215,8 @@ class ProductsController extends Controller
             'fitArray',
             'occassionArray',
             'categories',
-            'productData'
+            'productData',
+            'brands'
         ));
     }
 
@@ -305,12 +313,13 @@ class ProductsController extends Controller
             return redirect()->back();
         }
 
-        $productData = Product::select(
+        $productData = Product::with('brand')->select(
             'id',
             'product_name',
             'product_code',
             'product_color',
-            'main_image'
+            'main_image',
+            'brand_id'
         )->with('attributes')->find($id);
         $productData = json_decode(json_encode($productData), true);
         $title = "Product Attributes";

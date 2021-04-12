@@ -15,7 +15,7 @@
           <img src="{{url('images/admin_images/admin_photos/' . Auth::guard('admin')->user()->images)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::guard('admin')->user()->name}}</a>
+          <a href="#" class="d-block">{{ ucwords(Auth::guard('admin')->user()->name)}}</a>
         </div>
       </div>
 
@@ -78,7 +78,8 @@
           </li>
 
           {{-- catalogues --}}
-          @if (Session::get('page') == "sections" || Session::get('page') =="categories" || Session::get('page') =="products")
+          @if (Session::get('page') == "sections" || Session::get('page') =="categories" || Session::get('page') =="products" 
+              || Session::get('page') =="brands" || Session::get('page') =="banner" )
                 <?php $active = "active"; ?>
           @else
                 <?php $active = ""; ?>
@@ -103,6 +104,17 @@
                   <p>Sections</p>
                 </a>
               </li>
+              @if (Session::get('page') == "brands")
+                  <?php $active = "active"; ?>
+              @else
+                  <?php $active = ""; ?>
+              @endif
+              <li class="nav-item">
+                <a href="{{url('admin/brands')}}" class="nav-link {{$active}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brands</p>
+                </a>
+              </li>
               @if (Session::get('page') == "categories")
                   <?php $active = "active"; ?>
               @else
@@ -125,6 +137,17 @@
                   <p>Products</p>
                 </a>
               </li>
+              @if (Session::get('page') == "banner")
+              <?php $active = "active"; ?>
+              @else
+                  <?php $active = ""; ?>
+              @endif
+              <li class="nav-item">
+                <a href="{{url('admin/banner')}}" class="nav-link {{$active}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Banner</p>
+                </a>
+          </li>
             </ul>
           </li>     
         </ul>

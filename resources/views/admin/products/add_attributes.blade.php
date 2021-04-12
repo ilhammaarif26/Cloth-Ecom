@@ -152,10 +152,10 @@
                     <td>
                       @if ($productAttr['status'] == 1)
                       <a class="updateAttributeStatus" id="atrribute-{{ $productAttr['id'] }}" attribute_id="{{ $productAttr['id'] }}" 
-                        href="javascript:void(0)">Active</a>
+                        href="javascript:void(0)"><i class="fas fa-toggle-on" aria-hidden="true"  status="Active"></i></a>
                       @else
                           <a class="updateAttributeStatus" id="attribute-{{ $productAttr['id'] }}" attribute_id="{{ $productAttr['id'] }}" 
-                            href="javascript:void(0)" >Inactive</a>
+                            href="javascript:void(0)" ><i class="fas fa-toggle-off" aria-hidden="true"  status="Inactive"></i></a>
                       @endif 
                       &nbsp; &nbsp;
                       <a title="Delete Attribute" href="javascript:void(0)" class="confirmDelete" 
