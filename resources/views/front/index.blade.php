@@ -49,9 +49,9 @@
                                         $product_image_path = 'images/product_images/small/' . $item['main_image'];      
                                     ?>
                                     @if (!empty($item['main_image']) && file_exists($product_image_path))
-                                        <img src="{{asset('images/product_images/small/' . $item['main_image'])}}" alt="image" style="width: 150px">                                        
+                                        <img src="{{asset('images/product_images/small/' . $item['main_image'])}}" alt="image" style="width: 250px; height: 250px;" class="mb-2">                                        
                                     @else
-                                        <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 150px">
+                                        <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 250px; height: 250px;" class="mb-2">
                                     @endif
                                 </a>
                                 <span class="new">New</span>

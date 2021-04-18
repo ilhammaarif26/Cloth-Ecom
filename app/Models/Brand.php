@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
+
+    public static function brands()
+    {
+        $brands = Brand::where('status', 1)->get()->toArray();
+        return $brands;
+    }
+
     // relation to many table product
     public function products()
     {

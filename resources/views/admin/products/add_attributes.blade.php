@@ -76,8 +76,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group " >
+                        @if (!empty($productData['main_image']))
                         <img src="{{asset('images/product_images/small/' .$productData['main_image'])}}" 
                         style="width: 120px;" class="shadow-sm bg-body rounded"/> 
+                        @else
+                        <img src="{{asset('images/product_images/no-image.png')}}" 
+                        style="width: 120px;" class="shadow-sm bg-body rounded"/> 
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">

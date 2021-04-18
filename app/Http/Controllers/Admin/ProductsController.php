@@ -74,7 +74,7 @@ class ProductsController extends Controller
             $rules = [
                 'category_id' => 'required',
                 'brand_id' => 'required',
-                'product_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'product_name' => 'required',
                 'product_code' => 'required|regex:/^[\w-]*$/',
                 'product_price' => 'required|numeric',
                 'product_color' =>  'required|regex:/^[\pL\s\-]+$/u'
@@ -83,7 +83,6 @@ class ProductsController extends Controller
                 'category_id.required' => ' category is required',
                 'brand_id' => 'brand is required',
                 'product_name.required' => 'product name is required',
-                'product_name.regex' => 'valid product name is required',
                 'product_code.required' => 'product code is required',
                 'product_code.regex' => 'valid product code is required',
                 'product_price.required' => 'product price is required',
@@ -138,9 +137,9 @@ class ProductsController extends Controller
                     // save to large folder
                     Image::make($image_temp)->save($large_image_path); // width; 1040 height; 1200
                     // save to medium folder
-                    Image::make($image_temp)->resize(520, 600)->save($medium_image_path);
+                    Image::make($image_temp)->resize(500, 500)->save($medium_image_path);
                     // save to small folder
-                    Image::make($image_temp)->resize(260, 300)->save($small_image_path);
+                    Image::make($image_temp)->resize(250, 250)->save($small_image_path);
                     $product->main_image = $imageName;
                 }
             }

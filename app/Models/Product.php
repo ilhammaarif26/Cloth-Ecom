@@ -19,6 +19,12 @@ class Product extends Model
         return $this->belongsTo(Section::class, 'section_id');
     }
 
+    // relations to brand table 
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
     // realtion one to many attributes
     public function attributes()
     {
@@ -29,11 +35,5 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductsImage::class);
-    }
-
-    // relation to one table brand
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
     }
 }

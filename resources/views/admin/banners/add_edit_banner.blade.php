@@ -69,7 +69,7 @@
                       <div class="row">
                         <div class="col-sm-4 text-center">
                           <img src="{{asset('images/banner_images/' .$bannerData['image'])}}" class="mt-2 mb-2"
-                          style="width: 150px; height: 150px;"/> <br>
+                          style="width: 250px;"/> <br>
                           <a href="javascript:void(0)" record="banner-image" recordid="{{$bannerData['id']}}"
                             class="btn btn-sm btn-danger rounded confirmDelete">delete image
                           </a>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                      <label for="link">Link</label>
+                      <label for="link">Caption1</label>
                       <input type="text" class="form-control" id="link" placeholder="insert category discount" name="link"
                       @if (!empty($bannerData['link']))
                           value="{{$bannerData['link']}}"
@@ -93,7 +93,7 @@
               <div class="row">
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="alt">Alt</label>
+                    <label for="alt">Caption2</label>
                     <input type="text" class="form-control" id="alt" name="alt" placeholder="insert category url"
                     @if (!empty($bannerData['alt']))
                         value="{{$bannerData['alt']}}"
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label for="title">Title</label>
+                        <label for="title">Caption3</label>
                         <input type="text" class="form-control" id="title" placeholder="insert category discount" name="title"
                         @if (!empty($bannerData['title']))
                             value="{{$bannerData['title']}}"

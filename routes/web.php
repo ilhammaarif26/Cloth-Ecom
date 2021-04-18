@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ProductsController as FrontProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,5 +110,8 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 });
 
 Route::namespace('Front')->group(function () {
+    // Hoem page route
     Route::get('/', [IndexController::class, 'index']);
+    // Get listing/category route
+    Route::get('/{url}', [FrontProductsController::class, 'listing']);
 });

@@ -1,6 +1,8 @@
 <?php
     use App\Models\Section;
+    use App\Models\Brand;
     $sections = Section::sections();
+    $brands = Brand::brands();
 ?>
 <div id="site-header-wrap">
     <header id="header" class="header header-container clearfix">
@@ -50,13 +52,24 @@
                                     @foreach ($section['categories'] as $category)
                                         <li><a href="" style="font-weight: bold">{{$category['category_name']}}</a></li>
                                         @foreach ($category['subcategories'] as $subcategory)
-                                        <li><a href=""> &nbsp;&raquo;&nbsp; {{$subcategory['category_name']}}</a></li>
+                                        <li><a href="{{url('front/{url')}}"> &nbsp;&raquo;&nbsp; {{$subcategory['category_name']}}</a></li>
                                         @endforeach
                                     @endforeach
                                 </ul>
                             </li> 
-                        @endif
+                            @endif
                         @endforeach
+
+                        @if (count($brands)>0)
+                        <li>
+                            <a href="shop-3col.html" style="text-transform: uppercase">BRAND</a>
+                            <ul class="submenu">
+                                @foreach ($brands as $brand)
+                                    <li><a href="" style="font-weight: bold">{{$brand['name']}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li> 
+                        @endif
                         <li>
                             <a href="contact.html">CONTACT</a>
                         </li>

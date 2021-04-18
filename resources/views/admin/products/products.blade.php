@@ -55,7 +55,7 @@
                     <th>Category</th>
                     <th>Section</th>
                     <th>Image</th>
-                    <th>Color</th>
+                    <th>brand</th>
                     <th>Price</th>
                     <th>Discount</th>
                     <th>Status</th>
@@ -82,7 +82,7 @@
                               style="width: 50px; height: 50px;"/>
                           @endif
                         </td>
-                        <td>{{$product->product_color}}</td> 
+                        <td>{{$product->brand->name}}</td> 
                         <td>{{$product->product_price}}</td>
                         <td>{{$product->product_discount}}</td>
                         <td>

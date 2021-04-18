@@ -35,7 +35,7 @@
             <div class="col-sm-6 col-md-3">
                 <div class="widget widget-brand">
                     <div class="logo logo-footer">
-                        <a href="index.html"><img src="{{asset('images/front_images/images/logo@2x.png')}}" alt="image" width="107" height="24"></a>
+                            <h3>YUKSHOP</h3>
                     </div>
                     <ul class="flat-contact">
                         <li class="address">112 Kingdom, NA 12, New York</li>

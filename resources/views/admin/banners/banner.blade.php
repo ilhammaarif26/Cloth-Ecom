@@ -53,9 +53,9 @@
                     <th>No</th>
                     <th>ID</th>
                     <th>Image</th>
-                    <th>Link</th>
-                    <th>Title</th>
-                    <th>Alt</th>
+                    <th>Caption1</th>
+                    <th>Caption2</th>
+                    <th>Caption3</th>
                     <th>Status</th>
                   </tr>
                   </thead>

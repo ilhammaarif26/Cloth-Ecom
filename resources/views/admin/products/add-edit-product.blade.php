@@ -151,15 +151,12 @@
                     <div class="form-group">
                         <label for="main_image">Main Image</label>
                         <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="main_image" name="main_image">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="">Upload</span>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="main_image" name="main_image">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                             </div>
                         </div>
-                        <p>Recommended image size : 1040 x 1200 px</p>
+                        <p>Recommended image size : 1000 x 1000 px</p>
                         @if (!empty($productData['main_image']))
                         <div class="row">
                             <div class="col-sm-4 text-center">
