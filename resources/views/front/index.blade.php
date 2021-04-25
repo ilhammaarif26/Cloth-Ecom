@@ -1,7 +1,7 @@
 @extends('layouts.front_layout.front_layout')
 
 @section('title', $title)
-    
+
 @section('content')
 <div class="container mb-4">
     <div class="row gutter-10">
@@ -25,7 +25,7 @@
         @endforeach
     </div><!-- /.row -->
 </div>
-       
+
 <section class="flat-row row-product-new">
     <div class="container">
         <div class="row">
@@ -46,10 +46,10 @@
                             <div class="product-thumb clearfix">
                                 <a href="#" class="product-thumb">
                                     <?php
-                                        $product_image_path = 'images/product_images/small/' . $item['main_image'];      
+                                        $product_image_path = 'images/product_images/small/' . $item['main_image'];
                                     ?>
                                     @if (!empty($item['main_image']) && file_exists($product_image_path))
-                                        <img src="{{asset('images/product_images/small/' . $item['main_image'])}}" alt="image" style="width: 250px; height: 250px;" class="mb-2">                                        
+                                        <img src="{{asset('images/product_images/small/' . $item['main_image'])}}" alt="image" style="width: 250px; height: 250px;" class="mb-2">
                                     @else
                                         <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 250px; height: 250px;" class="mb-2">
                                     @endif
@@ -70,16 +70,16 @@
                             <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
                         </li>
                         @endforeach
-                    </ul>    
+                    </ul>
                 </div>
                 @endif
                 @endforeach
-                @endif  
+                @endif
             </div>
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section>
-       
+
 <section class="flat-row row-animation-box bg-section row-1">
     <div class="container">
         <div class="row">
@@ -93,12 +93,12 @@
                     <div class="elm-btn text-center">
                         <a href="#" class="themesflat-button bg-accent has-padding-36">Shop Now</a>
                     </div>
-                </div><!-- /.flat-animation-block -->                        
+                </div><!-- /.flat-animation-block -->
             </div>
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section>
-   
+
 <section class="flat-row row-product-project style-1">
     <div class="container">
         <div class="row">
@@ -318,7 +318,7 @@
         </div>
     </div>
 </section>
-       
+
 <section class="flat-row row-icon-box bg-section bg-color-f5f">
     <div class="container">
         <div class="row">
@@ -331,7 +331,7 @@
                         <div class="text-wrap">
                             <h5 class="heading"><a href="#">Free Shipping</a></h5>
                             <p class="desc">Free Shipping on order over $99</p>
-                        </div>                                
+                        </div>
                     </div>
                 </div>
             </div><!-- /.col-md-3 -->
@@ -344,7 +344,7 @@
                         <div class="text-wrap">
                             <h5 class="heading"><a href="#">Cash On Delivery</a></h5>
                             <p class="desc">The Internet Trend To Repeat</p>
-                        </div>                                    
+                        </div>
                     </div>
                 </div>
             </div><!-- /.col-md-3 -->
@@ -357,7 +357,7 @@
                         <div class="text-wrap">
                             <h5 class="heading"><a href="#">Gift For All</a></h5>
                             <p class="desc">Receive Gift When Subscribe</p>
-                        </div>                                    
+                        </div>
                     </div>
                 </div>
             </div><!-- /.col-md-3 -->
@@ -370,14 +370,14 @@
                         <div class="text-wrap">
                             <h5 class="heading"><a href="#">Opening All Week</a></h5>
                             <p class="desc">6.00 am - 17.00pm</p>
-                        </div>                                    
+                        </div>
                     </div>
                 </div>
             </div><!-- /.col-md-3 -->
         </div>
     </div>
 </section>
-       
+
 <section class="flat-row row-new-latest">
     <div class="container">
         <div class="row">
@@ -386,16 +386,16 @@
                     <h2 class="title">New Latest</h2>
                 </div>
                 <div class="new-latest-wrap">
-                    <div class="flat-new-latest flat-carousel-box post-wrap style3 data-effect clearfix" data-auto="false" data-column="3" data-column2="2" data-column3="1" data-gap="30" > 
+                    <div class="flat-new-latest flat-carousel-box post-wrap style3 data-effect clearfix" data-auto="false" data-column="3" data-column2="2" data-column3="1" data-gap="30" >
                         <div class="owl-carousel owl-theme">
                             @foreach ($newProducts as $product)
                             <article class="post clearfix">
                                 <div class="featured-post data-effect-item">
                                     <?php
-                                        $product_image_path = 'images/product_images/small/' . $product['main_image'];      
+                                        $product_image_path = 'images/product_images/small/' . $product['main_image'];
                                     ?>
                                     @if (!empty($product['main_image']) && file_exists($product_image_path))
-                                        <img class="img-fluid" src="{{asset('images/product_images/small/' . $product['main_image'])}}" alt="image" style="width: 300px; height: 250px;">                                        
+                                        <img class="img-fluid" src="{{asset('images/product_images/small/' . $product['main_image'])}}" alt="image" style="width: 300px; height: 250px;">
                                     @else
                                         <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 300px; height: 250px;">
                                     @endif
@@ -408,7 +408,7 @@
                                                 <p>
                                                     {{$product['product_code']}} ({{$product['product_color']}})
                                                 </p>
-                                            </li>                                              
+                                            </li>
                                         </ul>
                                         <div class="entry-post">
                                             <p>{{$product['description']}}</p>
@@ -419,12 +419,12 @@
                                         </h4>
                                     </div>
                                     <div class="overlay-effect bg-overlay-black"></div>
-                                </div>                                            
+                                </div>
                             </article>
                             @endforeach
-                        </div>                                                          
+                        </div>
                     </div>
-                </div>     
+                </div>
             </div>
         </div>
     </div>

@@ -54,13 +54,13 @@ class BannerController extends Controller
             ];
             $this->validate($request, $rules, $customMessages);
 
-            // upload banner image 
+            // upload banner image
             if ($request->hasFile('image')) {
                 $image_tmp = $request->file('image');
                 if ($image_tmp->isValid()) {
                     // get image extension
                     $extension = $image_tmp->getClientOriginalExtension();
-                    // generate new image name 
+                    // generate new image name
                     $imageName = rand(111, 99999) . '.' . $extension;
                     $imagePath = 'images/banner_images/' . $imageName;
                     // upload image
@@ -89,7 +89,7 @@ class BannerController extends Controller
         // get banner image
         $bannerImage = Banner::select('image')->where('id', $id)->first();
 
-        // get category image path 
+        // get category image path
         $banner_image_path = 'images/banner_images/';
 
         // Delete category image from category_image folder if exist
@@ -97,7 +97,7 @@ class BannerController extends Controller
             unlink($banner_image_path . $bannerImage->image);
         }
 
-        // delete category_image from categories table 
+        // delete category_image from categories table
         Banner::where('id', $id)->update(['image' => ""]);
 
         $message = "Banner image has been deleted";

@@ -132,7 +132,7 @@ class ProductsController extends Controller
                     $large_image_path = 'images/product_images/large/' . $imageName;
                     // path file image to medium folder
                     $medium_image_path = 'images/product_images/medium/' . $imageName;
-                    // path file image to small folder 
+                    // path file image to small folder
                     $small_image_path = 'images/product_images/small/' . $imageName;
                     // save to large folder
                     Image::make($image_temp)->save($large_image_path); // width; 1040 height; 1200
@@ -190,12 +190,14 @@ class ProductsController extends Controller
             session::flash('success_message', $message);
             return redirect('admin/products');
         }
-        // filter array for fabric, sleeve, fit, pattern, occassion column
-        $fabricArray = ['Cotton', 'Polyester', 'Woll'];
-        $sleeveArray = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve', 'Sleeveles'];
-        $patternArray = ['Checker', 'Plain', 'Printed', 'Self', 'Solid'];
-        $fitArray = ['Reguler', 'Slim'];
-        $occassionArray = ['Casual', 'Formal'];
+
+        // product filter
+        $productFilters = Product::productFilters();
+        $fabricArray = $productFilters['fabricArray'];
+        $sleeveArray = $productFilters['sleeveArray'];
+        $patternArray = $productFilters['patternArray'];
+        $fitArray = $productFilters['fitArray'];
+        $occassionArray = $productFilters['occassionArray'];
 
         // section with categories adn sub categories
         $categories = Section::with('categories')->get();
@@ -225,7 +227,7 @@ class ProductsController extends Controller
         // get product image
         $productImage = Product::select('main_image')->where('id', $id)->first();
 
-        // get main_image path 
+        // get main_image path
         $small_image_path = 'images/product_images/small/';
         $medium_image_path = 'images/product_images/medium/';
         $large_image_path = 'images/product_images/large/';
@@ -240,7 +242,7 @@ class ProductsController extends Controller
         if (file_exists($large_image_path . $productImage->main_image)) {
             unlink($large_image_path . $productImage->main_image);
         }
-        // delete product image from product table 
+        // delete product image from product table
         Product::where('id', $id)->update(['main_image' => ""]);
 
         $message = "Product image has been deleted";
@@ -254,7 +256,7 @@ class ProductsController extends Controller
         // get product video
         $productVideo = Product::select('product_video')->where('id', $id)->first();
 
-        // get product video path 
+        // get product video path
         $product_video_path = 'videos/product_videos/';
 
         // Delete product video from main_image folder if exist
@@ -262,7 +264,7 @@ class ProductsController extends Controller
             unlink($product_video_path . $productVideo->product_video);
         }
 
-        // delete product_video from product table 
+        // delete product_video from product table
         Product::where('id', $id)->update(['product_video' => '']);
 
         $message = "Product video has been deleted";
@@ -306,7 +308,7 @@ class ProductsController extends Controller
                 }
             }
 
-            // success alert  
+            // success alert
             $success_message = 'Product attributes has been added successfully';
             Session::flash('success_message', $success_message);
             return redirect()->back();
@@ -387,7 +389,7 @@ class ProductsController extends Controller
                     $large_image_path = 'images/product_images/large/' . $imageName;
                     // path file image to medium folder
                     $medium_image_path = 'images/product_images/medium/' . $imageName;
-                    // path file image to small folder 
+                    // path file image to small folder
                     $small_image_path = 'images/product_images/small/' . $imageName;
                     // save to large folder
                     Image::make($image_temp)->save($large_image_path); // width; 1040 height; 1200
@@ -419,7 +421,7 @@ class ProductsController extends Controller
         return view('admin.products.add_images', compact('title', 'imageData'));
     }
 
-    // update image status 
+    // update image status
     public function updateImageStatus(Request $request)
     {
         if ($request->ajax()) {
@@ -436,13 +438,13 @@ class ProductsController extends Controller
         }
     }
 
-    // delete image 
+    // delete image
     public function deleteImage($id)
     {
         // get product image
         $productImage = ProductsImage::select('image')->where('id', $id)->first();
 
-        // get main_image path 
+        // get main_image path
         $small_image_path = 'images/product_images/small/';
         $medium_image_path = 'images/product_images/medium/';
         $large_image_path = 'images/product_images/large/';
@@ -457,7 +459,7 @@ class ProductsController extends Controller
         if (file_exists($large_image_path . $productImage->image)) {
             unlink($large_image_path . $productImage->image);
         }
-        // delete product image from product table 
+        // delete product image from product table
         ProductsImage::where('id', $id)->delete();
 
         $message = "Product images has been deleted";

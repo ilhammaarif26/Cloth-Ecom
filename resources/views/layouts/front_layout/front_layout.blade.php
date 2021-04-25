@@ -98,6 +98,6 @@
     <script src="{{asset('slider/front_slider/rev-slider/js/extensions/revolution.extension.video.min.js')}}"></script>
 
     {{-- main js --}}
-    <script src="{{asset('js/front_js/main/main.js')}}"> </script>
+    <script src="{{asset('js/front_js/front_script.js')}}"> </script>
 </body>
 </html>

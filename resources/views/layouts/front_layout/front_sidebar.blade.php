@@ -7,23 +7,20 @@
 
 <section class="flat-row main-shop shop-slidebar">
     <div class="container">
-        
             <a href="" class="d-flex">
                 <img src="{{asset('images/front_images/images/cart_image.png')}}" alt="" style="width: 25px" class="mb-5"><span>&nbsp;&nbsp;no items in your cart</span>
             </a>
-        
-        
+            <div class="widget widget-search" style="margin-top: -20px;">
+                <form role="search" method="get" class="search-form" action="#">
+                    <label>
+                        <input type="search" class="search-field" placeholder="Search …" value="" name="s">
+                    </label>
+                    <input type="submit" class="search-submit" value="Search">
+                </form>
+            </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="sidebar slidebar-shop">
-                    <div class="widget widget-search">
-                        <form role="search" method="get" class="search-form" action="#">
-                            <label>                                    
-                                <input type="search" class="search-field" placeholder="Search …" value="" name="s">
-                            </label>
-                            <input type="submit" class="search-submit" value="Search">
-                        </form>                            
-                    </div>
                     <div class="widget widget-sort-by">
                         <h5 class="widget-title text-uppercase">
                             Catalogues
@@ -34,16 +31,59 @@
                                 <li class="font-weight-bold text-uppercase pt-2" style="font-size: 1rem">{{$section['name']}}</li>
                                     @foreach ($section['categories'] as $category)
                                     <ul>
-                                        <li><i class="fas fa-angle-right"></i>&nbsp;<a href="" class="font-weight-bold"><strong>{{$category['category_name']}}</strong></a></li>
+                                        <li><i class="fas fa-angle-right"></i>&nbsp;<a class="font-weight-bold" href="{{ url($category['url']) }}" ><strong>{{$category['category_name']}}</strong></a></li>
                                         @foreach ($category['subcategories'] as $subcategory)
-                                        <li>&nbsp;&raquo;&nbsp;<a href="" >{{$subcategory['category_name']}}</a></li>
+                                        <li>&nbsp;&raquo;&nbsp;<a href="{{ url($subcategory['url']) }}" >{{$subcategory['category_name']}}</a></li>
                                         @endforeach
                                     </ul>
-                                    @endforeach 
+                                    @endforeach
                             @endif
                             @endforeach
                         </ul>
-                    </div><!-- /.widget-sort-by -->
+                    </div>
+                    @if(isset($page_name) && $page_name == 'listing')
+                    <div class="widget widget-sort-by" style="margin-top: -30px">
+                        <h5 class="mb-2">fabric</h5>
+                        @foreach ($fabricArray as $fabric)
+                            <div class="d-flex">
+                                <input class="fabric" type="checkbox" name="fabric[]" id="{{ $fabric }}" value="{{ $fabric }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $fabric }}</p><br>
+                            </div>
+                        @endforeach
+                        <br>
+                       <h5 class="mb-2">Slevee</h5>
+                       @foreach ($sleeveArray as $sleeve)
+                            <div class="d-flex">
+                                <input class="sleeve" type="checkbox" name="sleeve[]" id="{{ $sleeve }}" value="{{ $sleeve }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $sleeve }}</p> <br>
+                            </div>
+                       @endforeach
+                       <br>
+                       <h5 class="mb-2">Pattern</h5>
+                       @foreach ($patternArray as $pattern)
+                            <div class="d-flex">
+                                <input class="pattern" type="checkbox" name="pattern[]" id="{{ $pattern }}" value="{{ $pattern }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $pattern }}</p><br>
+                            </div>
+                       @endforeach
+                       <br>
+                       <h5 class="mb-2">Fit</h5>
+                       @foreach ($fitArray as $fit)
+                            <div class="d-flex">
+                                <input class="fit" type="checkbox" name="fit[]" id="{{ $fit }}" value="{{ $fit }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $fit }}</p> <br>
+                            </div>
+                       @endforeach
+                       <br>
+                       <h5 class="mb-2">Occassion</h5>
+                       @foreach ($occassionArray as $occassion)
+                            <div class="d-flex">
+                                <input class="occassion" type="checkbox" name="ocassion[]" id="{{ $occassion }}" value="{{ $occassion }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $occassion }}</p> <br>
+                            </div>
+                       @endforeach
+                    </div>
+                    @endif
                     <div class="widget widget-color">
                         <h5 class="widget-title text-uppercase">
                            Brands
@@ -55,7 +95,8 @@
                             @endif
                             @endforeach
                         </ul>
-                    </div><!-- /.widget-color -->
+                        <br>
+                    </div>
                     <div class="widget widget-size">
                         <h5 class="widget-title">
                             Size
@@ -98,7 +139,7 @@
                                 </label>
                             </li>
                         </ul>
-                    </div><!-- /.widget-size -->
+                    </div>
                     <div class="widget widget-price">
                         <h5 class="widget-title">Filter by price</h5>
                         <div class="price-filter">
@@ -117,14 +158,14 @@
                             <a href="#" class="active">Bags</a>
                             <a href="#">Chair</a>
                             <a href="#">Decoration</a>
-                            <a href="#">Fashion</a> 
+                            <a href="#">Fashion</a>
                             <a href="#">Tie</a>
                             <a href="#">Furniture</a>
-                            <a href="#">Accesories</a> 
+                            <a href="#">Accesories</a>
                         </div>
-                    </div><!-- /.widget -->
-                </div><!-- /.sidebar -->
-            </div><!-- /.col-md-3 --
-        </div><!-- /.row -->
-    </div><!-- /.container -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

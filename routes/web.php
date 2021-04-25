@@ -10,16 +10,6 @@ use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ProductsController as FrontProductsController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,7 +29,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('check-current-pwd', [AdminController::class, 'checkCurrentPwd']);
         // route for change password
         Route::post('update-current-pwd', [AdminController::class, 'updateCurrentPwd']);
-        // route for admin details 
+        // route for admin details
         Route::match(['get', 'post'], 'update-admin-details', [AdminController::class, 'updateAdminDetails']);
 
         // sections
@@ -49,7 +39,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::get('delete-section/{id}', [SectionController::class, 'deleteSection']);
         Route::get('delete-section-image/{id}', [SectionController::class, 'deleteSectionImage']);
 
-        // brand 
+        // brand
         Route::get('brands', [BrandController::class, 'brands']);
         // add edit brand
         Route::match(['get', 'post'], 'add-edit-brand/{id?}', [BrandController::class, 'addEditBrand']);
@@ -62,16 +52,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::get('categories', [CategoryController::class, 'categories']);
         // update category status
         Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus']);
-        // add and edit category 
+        // add and edit category
         Route::match(['get', 'post'], 'add-edit-category/{id?}',  [CategoryController::class, 'addEditCategory']);
         // append category level
         Route::post('append-categories-level', [CategoryController::class, 'appendCategoryLevel']);
-        // delete category imgae 
+        // delete category imgae
         Route::get('delete-category-image/{id}', [CategoryController::class, 'deleteCategoryImage']);
         // delete category
         Route::get('delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
-        // products 
+        // products
         Route::get('products', [ProductsController::class, 'products']);
         // update product status
         Route::post('update-product-status', [ProductsController::class, 'updateProductStatus']);
@@ -86,11 +76,11 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // add attribute
         Route::match(['get', 'post'], 'add-attributes/{id}', [ProductsController::class, 'addAttributes']);
-        // edite attribute 
+        // edite attribute
         Route::post('edit-attributes/{id}', [ProductsController::class, 'editAttributes']);
         // update attribute status
         Route::post('update-attribute-status', [ProductsController::class, 'updateAttributeStatus']);
-        // delete attribute 
+        // delete attribute
         Route::get('delete-attribute/{id}', [ProductsController::class, 'deleteAttribute']);
 
         // add product image for display
@@ -114,4 +104,5 @@ Route::namespace('Front')->group(function () {
     Route::get('/', [IndexController::class, 'index']);
     // Get listing/category route
     Route::get('/{url}', [FrontProductsController::class, 'listing']);
+
 });

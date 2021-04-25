@@ -22,49 +22,46 @@
 <div class="product-content product-fourcolumn clearfix">
     <div class="filter-shop bottom_68 clearfix">
         <p class="showing-product">
-            {{count($categoryProducts)}} products are available
+            {{count([$categoryProducts])}} products are available
         </p>
         <ul class="flat-filter-search">
             <li>
-                <a href="#" class="show-filter">Filters</a>
+                <div class="widget widget-sort-by">
+                    <form action="" name="sortProducts" id="sortProducts" class="">
+                        <input type="hidden" name="url" id="url" value="{{ $url }}">
+                        <select name="sort" id="sort" class="form-select"  >
+                            <option>Filter by</option>
+                            <option value="product_latest" @if (isset($_GET['sort']) && $_GET['sort']=="product_latest")
+                                selected=""
+                            @endif>Product Latest</option>
+                            <option value="product_name_a_z"@if (isset($_GET['sort']) && $_GET['sort']=="product_name_a_z")
+                            selected=""
+                            @endif>Product Name A - Z</option>
+                            <option value="product_name_z_a"@if (isset($_GET['sort']) && $_GET['sort']=="product_name_z_a")
+                            selected=""
+                            @endif>Product Name Z - A</option>
+                            <option value="price_lowest"@if (isset($_GET['sort']) && $_GET['sort']=="price_lowest")
+                            selected=""
+                            @endif>Lowest Price</option>
+                            <option value="price_highest"@if (isset($_GET['sort']) && $_GET['sort']=="price_highest")
+                            selected=""
+                            @endif>Highest Price</option>
+                        </select>
+                    </form>
+                </div>
             </li>
-            <li class="search-product"><a href="#" >Search</a></li>
         </ul>
     </div>
-    <ul class="product style2">
-        @foreach ($categoryProducts as $product)
-        <ul class="product style2">
-            <li class="product-item">
-                <div class="product-thumb clearfix mb-2">
-                    <a href="#">
-                        <?php 
-                            $product_image_path = 'images/product_images/small/' .$product['main_image'];
-                        ?>
-                    @if (!empty($product['main_image']) && file_exists($product_image_path))   
-                        <img src="{{asset($product_image_path)}}" alt="image" style="width: 250px; height: 250px;" >
-                      @else
-                        <img src="{{asset('images/category_images/no-image.png')}}" class=""
-                        style="width: 250px; height: 250px;"/>
-                      @endif
-                    </a>
-                </div>
-                <div class="product-info clearfix">
-                    <div>
-                        <span class="product-title">{{$product['product_name']}}</span>
-                        <a href=""><p>{{$product['brand']['name']}}</p></a>
-                    </div>
-                    <div class="price">
-                        <ins>
-                            <span class="amount">Rp. {{$product['product_price']}}</span>
-                        </ins>
-                    </div>
-                </div>
-                <div class="add-to-cart text-center">
-                    <a href="#">ADD TO CART</a>
-                </div>
-            </li>
-        </ul>
-        @endforeach
-    </ul>
+    <div class="filter_products">
+        @include('front.products.ajax_products_listing')
+    </div>
+</div>
+
+<div class="product-pagination text-center clearfix mt-2">
+    @if (isset($_GET['sort']) && !empty($_GET['sort']))
+        {{ $categoryProducts->appends(['sort' => $_GET['sort']])->links() }}
+    @else
+        {{ $categoryProducts->links() }}
+    @endif
 </div>
 @endsection

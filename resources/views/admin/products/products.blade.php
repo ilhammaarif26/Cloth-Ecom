@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout.admin_layout')
-  
+
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -40,7 +40,7 @@
                     <h3 class="card-title">Products</h3>
                   </div>
                   <div class="col-sm-6">
-                    <a href="{{ url('admin/add-edit-product')}}" style="max-width: 150px; display: inline-block; float: right;" 
+                    <a href="{{ url('admin/add-edit-product')}}" style="max-width: 150px; display: inline-block; float: right;"
                     class="btn btn-primary">Add Product</a>
                   </div>
                 </div>
@@ -82,18 +82,18 @@
                               style="width: 50px; height: 50px;"/>
                           @endif
                         </td>
-                        <td>{{$product->brand->name}}</td> 
+                        <td>{{$product->brand->name}}</td>
                         <td>{{$product->product_price}}</td>
                         <td>{{$product->product_discount}}</td>
                         <td>
                             @if ($product->status == 1)
-                                <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" 
+                                <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}"
                                   href="javascript:void(0)"><i class="fas fa-toggle-on" aria-hidden="true"  status="Active"></i></a>
                             @else
-                                <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" 
+                                <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}"
                                   href="javascript:void(0)" ><i class="fas fa-toggle-off" aria-hidden="true"  status="Inactive"></i></a>
-                            @endif 
-                        </td> 
+                            @endif
+                        </td>
                         <td>
                           <a title="Add/Edit Attribute" href="{{url('admin/add-attributes/' .$product->id)}}" style="color: black;">
                             <i class="far fa-plus-square"></i>
@@ -102,12 +102,12 @@
                           <a title="Add Image" href="{{url('admin/add-images/' .$product->id)}}" style="color: black;">
                             <i class="fas fa-plus-circle"></i>
                           </a>
-                          &nbsp;&nbsp; 
+                          &nbsp;&nbsp;
                           <a title="Edit Product" href="{{url('admin/add-edit-product/' .$product->id)}}" style="color: black;">
                             <i class="far fa-edit"></i>
                           </a>
                           &nbsp;&nbsp;
-                          <a title="Delete Product" href="javascript:void(0)" class="confirmDelete" 
+                          <a title="Delete Product" href="javascript:void(0)" class="confirmDelete"
                             record="product" recordid="{{$product->id}}" style="color: black;">
                             <i class="far fa-trash-alt"></i>
                           </a>

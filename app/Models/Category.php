@@ -19,13 +19,13 @@ class Category extends Model
         return $this->belongsTo(Section::class, 'section_id')->select('id', 'name');
     }
 
-    // relasi one to many ke parent category 
+    // relasi one to many ke parent category
     public function parentcategory()
     {
         return $this->belongsTo(Category::class, 'parent_id')->select('id', 'category_name');
     }
 
-    // for listing category 
+    // for listing category
     public static function catDetails($url)
     {
         $catDetails = Category::select('id', 'parent_id', 'category_name', 'url', 'description')->with(['subcategories' => function ($query) {
@@ -33,7 +33,7 @@ class Category extends Model
         }])->where('url', $url)->first()->toArray();
 
         if ($catDetails['parent_id'] == 0) {
-            // only show main category in breadcumb 
+            // only show main category in breadcumb
             $breadcrumbs = '<a href="' . url($catDetails['url']) . '">' . $catDetails['category_name'] . '</a>';
         } else {
             // show main and subcategory in breadcrumbs

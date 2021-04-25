@@ -9,7 +9,7 @@
         <div class="container clearfix" id="site-header-inner">
             <div id="logo" class="logo float-left">
                 <a href="index.html" title="logo">
-                    <h3>YUKSHOP</h3>
+                    <a href="{{ url('/') }}"><h3>YUKSHOP</h3></a>
                 </a>
             </div>
             <div class="mobile-button"><span></span></div>
@@ -40,23 +40,23 @@
             </ul>
             <div class="nav-wrap">
                 <nav id="mainnav" class="mainnav">
-                    <ul class="menu">   
+                    <ul class="menu">
                         <li class="">
                             <a href="{{url('/')}}">HOME</a>
                         </li>
                         @foreach ($sections as $section)
                             @if (count($section['categories'])>0)
                             <li>
-                                <a href="shop-3col.html" style="text-transform: uppercase">{{$section['name']}}</a>
+                                <a href="" style="text-transform: uppercase">{{$section['name']}}</a>
                                 <ul class="submenu">
                                     @foreach ($section['categories'] as $category)
-                                        <li><a href="" style="font-weight: bold">{{$category['category_name']}}</a></li>
+                                            <li><a href="{{ url($category['url']) }}" style="font-weight: bold">{{$category['category_name']}}</a></li>
                                         @foreach ($category['subcategories'] as $subcategory)
-                                        <li><a href="{{url('front/{url')}}"> &nbsp;&raquo;&nbsp; {{$subcategory['category_name']}}</a></li>
+                                        <li><a href="{{ url($subcategory['url']) }}"> &nbsp;&raquo;&nbsp; {{$subcategory['category_name']}}</a></li>
                                         @endforeach
                                     @endforeach
                                 </ul>
-                            </li> 
+                            </li>
                             @endif
                         @endforeach
 
@@ -68,7 +68,7 @@
                                     <li><a href="" style="font-weight: bold">{{$brand['name']}}</a></li>
                                 @endforeach
                             </ul>
-                        </li> 
+                        </li>
                         @endif
                         <li>
                             <a href="contact.html">CONTACT</a>

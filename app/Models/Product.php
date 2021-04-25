@@ -13,13 +13,13 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    // relation many to one section 
+    // relation many to one section
     public function section()
     {
         return $this->belongsTo(Section::class, 'section_id');
     }
 
-    // relations to brand table 
+    // relations to brand table
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
@@ -36,4 +36,18 @@ class Product extends Model
     {
         return $this->hasMany(ProductsImage::class);
     }
+
+    public static function productFilters()
+    {
+        // Product Filter
+        $productFilters['fabricArray'] = array('Cotton', 'Polyester', 'Woll');
+        $productFilters['sleeveArray'] = array('Full Sleeve', 'Half Sleeve', 'Short Sleeve', 'Sleeveles');
+        $productFilters['patternArray'] = array('Checked', 'Plain', 'Printed', 'Self', 'Solid');
+        $productFilters['fitArray'] = array('Regular', 'Slim');
+        $productFilters['occassionArray'] = array('Casual', 'Formal');
+
+        return $productFilters;
+    }
+
 }
+
