@@ -7,20 +7,21 @@
 
 <section class="flat-row main-shop shop-slidebar">
     <div class="container">
-            <a href="" class="d-flex">
-                <img src="{{asset('images/front_images/images/cart_image.png')}}" alt="" style="width: 25px" class="mb-5"><span>&nbsp;&nbsp;no items in your cart</span>
-            </a>
-            <div class="widget widget-search" style="margin-top: -20px;">
-                <form role="search" method="get" class="search-form" action="#">
-                    <label>
-                        <input type="search" class="search-field" placeholder="Search …" value="" name="s">
-                    </label>
-                    <input type="submit" class="search-submit" value="Search">
-                </form>
-            </div>
+        <a href="{{ url('cart') }}" class="d-flex">
+            <img src="{{asset('images/front_images/images/cart_image.png')}}" alt="" style="width: 25px" class="mb-5"><span>&nbsp;&nbsp;no items in your cart</span>
+        </a>
+        <div class="widget widget-search" style="margin-top: -20px;">
+            <form role="search" method="get" class="search-form" action="#">
+                <label>
+                    <input type="search" class="search-field" placeholder="Search …" value="" name="s">
+                </label>
+                <input type="submit" class="search-submit" value="Search">
+            </form>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="sidebar slidebar-shop">
+                    @if (isset($page_name) && $page_name != 'cart')
                     <div class="widget widget-sort-by">
                         <h5 class="widget-title text-uppercase">
                             Catalogues
@@ -41,8 +42,9 @@
                             @endforeach
                         </ul>
                     </div>
+                    @endif
                     @if(isset($page_name) && $page_name == 'listing')
-                    <div class="widget widget-sort-by" style="margin-top: -30px">
+                    <div class="widget widget-sort-by" style="margin-top:-50px ">
                         <h5 class="mb-2">fabric</h5>
                         @foreach ($fabricArray as $fabric)
                             <div class="d-flex">
@@ -60,10 +62,10 @@
                        @endforeach
                        <br>
                        <h5 class="mb-2">Pattern</h5>
-                       @foreach ($patternArray as $pattern)
+                       @foreach ($pattrenArray as $pattren)
                             <div class="d-flex">
-                                <input class="pattern" type="checkbox" name="pattern[]" id="{{ $pattern }}" value="{{ $pattern }}">
-                                &nbsp;<p style="margin-top: -5px;">{{ $pattern }}</p><br>
+                                <input class="pattren" type="checkbox" name="pattren[]" id="{{ $pattren }}" value="{{ $pattren }}">
+                                &nbsp;<p style="margin-top: -5px;">{{ $pattren }}</p><br>
                             </div>
                        @endforeach
                        <br>
@@ -84,7 +86,7 @@
                        @endforeach
                     </div>
                     @endif
-                    <div class="widget widget-color">
+                    <div class="widget widget-color" style="margin-top:">
                         <h5 class="widget-title text-uppercase">
                            Brands
                         </h5>
@@ -95,74 +97,6 @@
                             @endif
                             @endforeach
                         </ul>
-                        <br>
-                    </div>
-                    <div class="widget widget-size">
-                        <h5 class="widget-title">
-                            Size
-                        </h5>
-                        <ul>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok1" id="checkbox1">
-                                <label for="checkbox1">
-                                    <a href="#">L</a>
-                                </label>
-                            </li>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok2" id="checkbox2">
-                                <label for="checkbox2">
-                                    <a href="#">M</a>
-                                </label>
-                            </li>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok3" id="checkbox3">
-                                <label for="checkbox3">
-                                    <a href="#">S</a>
-                                </label>
-                            </li>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok4" id="checkbox4">
-                                <label for="checkbox4">
-                                    <a href="#">X</a>
-                                </label>
-                            </li>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok5" id="checkbox5">
-                                <label for="checkbox5">
-                                    <a href="#">XL</a>
-                                </label>
-                            </li>
-                            <li class="checkbox">
-                                <input type="checkbox" name="checkbok6" id="checkbox6">
-                                <label for="checkbox6">
-                                    <a href="#">XXL</a>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="widget widget-price">
-                        <h5 class="widget-title">Filter by price</h5>
-                        <div class="price-filter">
-                            <div id="slide-range"></div>
-                            <p class="amount">
-                              Price: <input type="text" id="amount" disabled="">
-                            </p>
-                        </div>
-                    </div>
-                    <div class="widget widget_tag">
-                        <h5 class="widget-title">
-                            Tags
-                        </h5>
-                        <div class="tag-list">
-                            <a href="#">All products</a>
-                            <a href="#" class="active">Bags</a>
-                            <a href="#">Chair</a>
-                            <a href="#">Decoration</a>
-                            <a href="#">Fashion</a>
-                            <a href="#">Tie</a>
-                            <a href="#">Furniture</a>
-                            <a href="#">Accesories</a>
-                        </div>
                     </div>
                 </div>
             </div>

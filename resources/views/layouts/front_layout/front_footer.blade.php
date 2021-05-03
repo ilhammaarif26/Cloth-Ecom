@@ -38,9 +38,9 @@
                             <h3>YUKSHOP</h3>
                     </div>
                     <ul class="flat-contact">
-                        <li class="address">112 Kingdom, NA 12, New York</li>
-                        <li class="phone">+12 345 678 910</li>
-                        <li class="email">infor.deercreative@gmail.com</li>
+                        <li class="address">Setiabudhi, Kota Bandung</li>
+                        <li class="phone">+62 8957 0840 0201</li>
+                        <li class="email">yukshop.store@gmail.com</li>
                     </ul><!-- /.flat-contact -->
                 </div><!-- /.widget -->
             </div><!-- /.col-md-3 -->

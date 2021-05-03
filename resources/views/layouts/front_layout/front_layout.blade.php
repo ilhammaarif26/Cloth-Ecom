@@ -11,6 +11,9 @@
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    {{-- token for jquery ajax  --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Bootstrap  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/front_css/stylesheets/bootstrap.css')}}" >
 
@@ -33,6 +36,8 @@
 
     <!-- Favicon and touch icons  -->
     <link href="icon/favicon.png" rel="shortcut icon">
+
+    @yield('style')
 
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
@@ -96,6 +101,9 @@
     <script src="{{asset('slider/front_slider/rev-slider/js/extensions/revolution.extension.parallax.min.js')}}"></script>
     <script src="{{asset('slider/front_slider/rev-slider/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
     <script src="{{asset('slider/front_slider/rev-slider/js/extensions/revolution.extension.video.min.js')}}"></script>
+
+    {{-- swwet alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     {{-- main js --}}
     <script src="{{asset('js/front_js/front_script.js')}}"> </script>

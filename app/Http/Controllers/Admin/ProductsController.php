@@ -139,7 +139,7 @@ class ProductsController extends Controller
                     // save to medium folder
                     Image::make($image_temp)->resize(500, 500)->save($medium_image_path);
                     // save to small folder
-                    Image::make($image_temp)->resize(250, 250)->save($small_image_path);
+                    Image::make($image_temp)->resize(100, 100)->save($small_image_path);
                     $product->main_image = $imageName;
                 }
             }
@@ -166,10 +166,11 @@ class ProductsController extends Controller
             $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
-            $product->product_color = $data['product_color'];
+            $product->product_color = strtolower($data['product_color']);
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
             $product->product_weight = $data['product_weight'];
+            $product->dimension = $data['dimension'];
             $product->description = $data['description'];
             $product->wash_care = $data['wash_care'];
             $product->fabric = $data['fabric'];
@@ -195,7 +196,7 @@ class ProductsController extends Controller
         $productFilters = Product::productFilters();
         $fabricArray = $productFilters['fabricArray'];
         $sleeveArray = $productFilters['sleeveArray'];
-        $patternArray = $productFilters['patternArray'];
+        $pattrenArray = $productFilters['pattrenArray'];
         $fitArray = $productFilters['fitArray'];
         $occassionArray = $productFilters['occassionArray'];
 
@@ -212,7 +213,7 @@ class ProductsController extends Controller
             'title',
             'fabricArray',
             'sleeveArray',
-            'patternArray',
+            'pattrenArray',
             'fitArray',
             'occassionArray',
             'categories',
@@ -299,8 +300,8 @@ class ProductsController extends Controller
 
                     $attribute = new ProductsAttribute;
                     $attribute->product_id = $id;
-                    $attribute->sku = $value;
-                    $attribute->size = $data['size'][$key];
+                    $attribute->sku = strtoupper($value);
+                    $attribute->size =  strtolower($data['size'][$key]) ;
                     $attribute->price = $data['price'][$key];
                     $attribute->stock = $data['stock'][$key];
                     $attribute->status = 1;
@@ -396,7 +397,7 @@ class ProductsController extends Controller
                     // save to medium folder
                     Image::make($image_temp)->resize(520, 600)->save($medium_image_path);
                     // save to small folder
-                    Image::make($image_temp)->resize(260, 300)->save($small_image_path);
+                    Image::make($image_temp)->resize(100, 100)->save($small_image_path);
                     $productImage->image = $imageName;
                     $productImage->product_id = $id;
                     $productImage->status = 1;

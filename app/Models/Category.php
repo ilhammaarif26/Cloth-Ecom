@@ -25,6 +25,10 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id')->select('id', 'category_name');
     }
 
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
+
     // for listing category
     public static function catDetails($url)
     {

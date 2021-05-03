@@ -1,5 +1,7 @@
 @extends('layouts.front_layout.front_layout')
 
+@section('title', $url)
+
 @section('content')
 <div class="page-title parallax parallax1">
     <div class="container">
@@ -13,7 +15,6 @@
                         <li><a href="{{url('/')}}">Home</a></li>
                         <li><a href=""><?php echo $categoryDetails['breadcrumbs']; ?></a></li>
                     </ul>
-                    <p>{{$categoryDetails['catDetails']['description']}}</p>
                 </div>
             </div>
         </div>

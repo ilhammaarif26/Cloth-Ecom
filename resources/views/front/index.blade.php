@@ -11,9 +11,15 @@
                 <div class="item data-effect-item">
                     <div class="inner">
                         <div class="thumb">
-                            <img src="{{asset('images/section_images/' .$imageSection['section_image'])}}" alt="Image" style="height: 250px;"
-                            class="img-fluid">
-                            <div class="elm-btn">
+                            <?php
+                                $section_image_path = 'images/section_images/' .$imageSection['section_image'];
+                            ?>
+                            @if (!empty($imageSection['section_image']) && file_exists($section_image_path))
+                                <img src="{{ $section_image_path }}" alt="image" class="img-fluid mb-4" style="height: 160px">
+                            @else
+                                <img src="{{asset('images/product_images/no-image.png')}}" alt="image">
+                            @endif
+                            <div class="elm-btn" style="margin-top: -10px">
                                 <a href="#" class="themesflat-button bg-white width-150">{{$imageSection['name']}}</a>
                             </div>
                             <div class="overlay-effect bg-color-1"></div>
@@ -23,7 +29,7 @@
             </div>
         </div>
         @endforeach
-    </div><!-- /.row -->
+    </div>
 </div>
 
 <section class="flat-row row-product-new">
@@ -44,12 +50,12 @@
                         @foreach ($featuredItem as $item)
                         <li class="product-item">
                             <div class="product-thumb clearfix">
-                                <a href="#" class="product-thumb">
+                                <a href="{{ url('product/'  .$item['id']) }}" class="product-thumb">
                                     <?php
-                                        $product_image_path = 'images/product_images/small/' . $item['main_image'];
+                                        $product_image_path = 'images/product_images/medium/' . $item['main_image'];
                                     ?>
                                     @if (!empty($item['main_image']) && file_exists($product_image_path))
-                                        <img src="{{asset('images/product_images/small/' . $item['main_image'])}}" alt="image" style="width: 250px; height: 250px;" class="mb-2">
+                                        <img src="{{asset('images/product_images/medium/' . $item['main_image'])}}" alt="image" style="width: 250px; height: 250px;" class="mb-2">
                                     @else
                                         <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 250px; height: 250px;" class="mb-2">
                                     @endif
@@ -65,7 +71,8 @@
                                 </div>
                             </div>
                             <div class="add-to-cart text-center">
-                                <a href="#">VIEW</a>
+                                <a href="{{ url('product/' .$item['id']) }}">VIEW</a> &nbsp;
+                                <a title="add to cart" href=""  style="color: white;"><i class="fas fa-shopping-cart"></i> </a>
                             </div>
                             <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
                         </li>
@@ -391,14 +398,16 @@
                             @foreach ($newProducts as $product)
                             <article class="post clearfix">
                                 <div class="featured-post data-effect-item">
-                                    <?php
+                                    <a href="{{ url('product/' .$product['id']) }}">
+                                        <?php
                                         $product_image_path = 'images/product_images/small/' . $product['main_image'];
-                                    ?>
-                                    @if (!empty($product['main_image']) && file_exists($product_image_path))
-                                        <img class="img-fluid" src="{{asset('images/product_images/small/' . $product['main_image'])}}" alt="image" style="width: 300px; height: 250px;">
-                                    @else
-                                        <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  style="width: 300px; height: 250px;">
-                                    @endif
+                                        ?>
+                                        @if (!empty($product['main_image']) && file_exists($product_image_path))
+                                            <img class="img-fluid" src="{{asset('images/product_images/medium/' . $product['main_image'])}}" alt="image" >
+                                        @else
+                                            <img src="{{asset('images/product_images/no-image.png')}}" alt="image"  >
+                                        @endif
+                                    </a>
                                     <div class="content-post text-center">
                                         <div class="title-post">
                                             <h3><a href="blog-detail.html"><p>{{$product['product_name']}}</p></a></h3>
@@ -410,13 +419,11 @@
                                                 </p>
                                             </li>
                                         </ul>
-                                        <div class="entry-post">
-                                            <p>{{$product['description']}}</p>
-                                        </div>
                                         <h4 style="text-align: center;">
-                                            <a href="" class="btn btn-sm btn-danger" style="color: white;"> add to <i class="fas fa-shopping-cart"></i> </a>
-                                            <a href="" class="btn" style="color: white;">Rp. {{$product['product_price']}}</a>
+                                            <p class="btn" style="color: white;">Rp. {{ number_format($product['product_price']) }}</p>
                                         </h4>
+                                        <a title="view" href="{{ url('product/' .$product['id']) }}" class="btn btn-sm btn-danger"  style="color: white"><i class="far fa-eye"></i></a>
+                                        <a title="add to cart" href="" class="btn btn-sm btn-danger" style="color: white;"><i class="fas fa-shopping-cart"></i> </a>
                                     </div>
                                     <div class="overlay-effect bg-overlay-black"></div>
                                 </div>

@@ -1,5 +1,5 @@
 @extends('layouts.admin_layout.admin_layout')
-  
+
 @section('content')
   <div class="content-wrapper">
     <section class="content-header">
@@ -24,9 +24,9 @@
             <div class="alert alert-danger" style="margin-top: 10px;">
                 <ul>
                   @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>      
-                  @endforeach   
-                </ul> 
+                    <li>{{$error}}</li>
+                  @endforeach
+                </ul>
             </div>
         @endif
         {{-- validation alert --}}
@@ -77,8 +77,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group " >
-                        <img src="{{asset('images/product_images/small/' .$imageData['main_image'])}}" 
-                        style="width: 120px;" class="shadow-sm bg-body rounded"/> 
+                        @if (!empty($imageData['main_image']))
+                            <img src="{{asset('images/product_images/small/' .$imageData['main_image'])}}"
+                            style="width: 120px;" class="shadow-sm bg-body rounded"/>
+                        @else
+                            <img src="{{asset('images/product_images/no-image.png')}}"
+                            style="width: 120px;" class="shadow-sm bg-body rounded"/>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -131,18 +136,18 @@
               <input style="display: none" type="text" name="attrId[]" value="{{$image['id']}}">
                 <tr class="text-center">
                     <td>{{$image['id']}}</td>
-                    <td><img src="{{asset('images/product_images/small/' .$image['image'])}}" 
+                    <td><img src="{{asset('images/product_images/small/' .$image['image'])}}"
                         style="width: 120px;" class="shadow-sm bg-body rounded"/>
                     <td>
                       @if ($image['status'] == 1)
-                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
+                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}"
                         href="javascript:void(0)"><i class="fas fa-toggle-on" aria-hidden="true"  status="Active"></i></a>
                       @else
-                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" 
+                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}"
                         href="javascript:void(0)" ><i class="fas fa-toggle-off" aria-hidden="true"  status="Inactive"></i></a>
-                      @endif 
+                      @endif
                       &nbsp; &nbsp;
-                      <a title="Delete Image" href="javascript:void(0)" class="confirmDelete" 
+                      <a title="Delete Image" href="javascript:void(0)" class="confirmDelete"
                       record="image" recordid="{{$image['id']}}" style="color: black;">
                       <i class="far fa-trash-alt"></i>
                       </a>
@@ -150,13 +155,10 @@
                 </tr>
               @endforeach
             </table>
-            <div class="card-footer">
-              <button type="submit" class="btn btn-sm btn-primary">Update Images</button>
-            </div>
           </div>
         </div>
         </form>
-       
+
       </div>
     </section>
   </div>

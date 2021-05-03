@@ -217,6 +217,15 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
+                        <label for="dimension">Product Dimension</label>
+                        <input type="text" class="form-control" id="dimension" name="dimension" placeholder="insert product dimension"
+                        @if (!empty($productData['dimension']))
+                            value="{{$productData['dimension']}}"
+                        @else
+                            value="{{old('dimension')}}"
+                        @endif>
+                    </div>
+                    <div class="form-group">
                         <label for="product_discount">Product Discount(%)</label>
                         <input type="text" class="form-control" id="product_discount" name="product_discount" placeholder="insert product discount"
                         @if (!empty($productData['product_discount']))
@@ -254,7 +263,7 @@
                         <label for="pattren">Select Pattern</label>
                         <select name="pattren" id="pattren" class="form-control select2" style="width: 100%;">
                           <option value="">select</option>
-                          @foreach ($patternArray as $pattren)
+                          @foreach ($pattrenArray as $pattren)
                               <option value="{{$pattren}}"
                               @if (!empty($productData['pattren'])  && $productData['pattren']==$pattren)
                               selected=""

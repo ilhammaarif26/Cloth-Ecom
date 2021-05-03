@@ -12,15 +12,15 @@ class IndexController extends Controller
     public function index()
     {
 
-        // Get featured item 
+        // Get featured item
         $featuredItemsCount = Product::where('is_featured', 'yes')->where('status', 1)->count();
         $featuredItems = Product::where('is_featured', 'yes')->where('status', 1)->get()->toArray();
         $featuredItemsChunk = array_chunk($featuredItems, 4);
 
-        // get section image 
+        // get section image
         $getImageSection = Section::get()->toArray();
 
-        // get new Product 
+        // get new Product
         $newProducts = Product::orderBy('id', 'desc')->where('status', 1)->limit(3)->get()->toArray();
 
         $page_name = "index";

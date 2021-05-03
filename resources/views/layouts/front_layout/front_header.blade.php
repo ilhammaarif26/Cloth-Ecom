@@ -22,20 +22,7 @@
                     </form>
                 </li>
                     <li class="box-cart nav-top-cart-wrapper">
-                        <a class=" nav-cart-trigger active" href="#"><i class="fas fa-shopping-cart"></i> <span>3</span></a>
-                        <div class="nav-shop-cart">
-                            <div class="widget_shopping_cart_content">
-                                <div class="woocommerce-min-cart-wrap">
-                                    <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                                        <li class="woocommerce-mini-cart-item mini_cart_item">
-                                            <span>
-                                            no item
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <a class=" nav-cart-trigger active" href="{{ url('/cart') }}"><i class="fas fa-shopping-cart"></i></a>
                     </li>
             </ul>
             <div class="nav-wrap">

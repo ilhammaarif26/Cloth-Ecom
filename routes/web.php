@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ProductsController as FrontProductsController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,7 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -102,7 +102,23 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 Route::namespace('Front')->group(function () {
     // Hoem page route
     Route::get('/', [IndexController::class, 'index']);
+
     // Get listing/category route
-    Route::get('/{url}', [FrontProductsController::class, 'listing']);
+    $carUrl = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach($carUrl as $url){
+        Route::get('/'. $url, [FrontProductsController::class, 'listing']);
+    }
+
+    // get product details
+    Route::get('/product/{id}', [FrontProductsController::class, 'detail']);
+
+    // get attribute price
+    Route::post('/get-attribute-price', [FrontProductsController::class, 'getAttributePrice']);
+
+    //add to cart
+    Route::post('/add-to-cart', [FrontProductsController::class, 'addToCart']);
+
+    // cart view
+    Route::get('/cart', [FrontProductsController::class, 'cart']);
 
 });
