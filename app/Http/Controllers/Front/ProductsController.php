@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\Section;
+use App\Models\Shipp;
 use Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -207,7 +208,9 @@ class ProductsController extends Controller
     public function cart(){
         $userCartItems = Cart::userCartItems();
         $cartCount = Cart::all()->count();
+        $shipData = Shipp::all()->toArray();
+        // dd($shipData);
         $page_name = 'cart';
-        return view('front.products.cart', compact('page_name', 'userCartItems', 'cartCount'));
+        return view('front.products.cart', compact('page_name', 'userCartItems', 'cartCount', 'shipData'));
     }
 }

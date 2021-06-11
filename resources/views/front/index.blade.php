@@ -123,37 +123,46 @@
                 <div class="divider h54"></div>
                 <div class="product-content product-fourcolumn clearfix">
                     <ul class="product style2 isotope-product clearfix">
+                        @foreach ($bestSale as $best)
                         <li class="product-item kid woman">
                             <div class="product-thumb clearfix">
-                                <a href="#">
-                                    <img src="{{asset('images/front_images/images/shop/sh-4/1.jpg')}}" alt="image">
+                                <a href="{{ url('product/' . $best['id']) }}">
+                                    @if (isset($best['main_image']))
+                                    <?php $product_image_path = 'images/product_images/large/' .$best['main_image']; ?>
+                                     @else
+                                    <?php $best_image_path = '' ?>
+                                    @endif
+                                    <?php
+                                            $product_image_path = 'images/product_images/large/' .$best['main_image'];
+                                    ?>
+                                    @if (!empty($best['main_image']) && file_exists($product_image_path))
+                                        <img src="{{asset($product_image_path)}}" alt="image" style="width: 180px; height: 180px" >
+                                    @else
+                                        <img src="{{asset('images/category_images/no-image.png')}}" class=""
+                                        style="width: 180px; height: 180px"/>
+                                    @endif
                                 </a>
                             </div>
                             <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
+                                <span class="product-title">{{ $best['product_name'] }}</span>
                                 <div class="price">
                                     <ins>
-                                        <span class="amount">$100.00</span>
+                                        <span class="amount"> <small>Rp. {{ number_format($best['product_price']) }}</small> </span>
                                     </ins>
                                 </div>
                                 <ul class="flat-color-list width-14">
                                     <li>
-                                        <a href="#" class="red"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="blue"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="black"></a>
+                                        {{ $best["product_color"] }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="add-to-cart text-center">
-                                <a href="#">ADD TO CART</a>
+                                <a href="{{ url('product/' .$best['id']) }}">VIEW</i></a>
                             </div>
                             <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
                         </li>
-                        <li class="product-item man accessories">
+                        @endforeach
+                        {{-- <li class="product-item man accessories">
                             <div class="product-thumb clearfix">
                                 <a href="#">
                                     <img src="{{asset('images/front_images/images/shop/sh-4/2.jpg')}}" alt="image">
@@ -318,7 +327,7 @@
                                 <a href="#">ADD TO CART</a>
                             </div>
                             <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>

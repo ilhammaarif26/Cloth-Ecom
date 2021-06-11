@@ -189,7 +189,12 @@
               </li> --}}
               <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 Shipping
-                <span>Free</span>
+                <select name="ship" id="ship">
+                    <option value="">Select Shipping</option>
+                    @foreach ($shipData as $ship)
+                    <option value="{{ $ship['id'] }}">{{ $ship['address'] }} = {{ $ship['price'] }}</option>
+                    @endforeach
+                </select>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 Total Amount

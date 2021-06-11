@@ -22,6 +22,7 @@ class IndexController extends Controller
 
         // get new Product
         $newProducts = Product::orderBy('id', 'desc')->where('status', 1)->limit(3)->get()->toArray();
+        $bestSale = Product::orderBy('id', 'asc')->where('status', 1)->limit(8)->get()->toArray();
 
         $page_name = "index";
         $title = "Home";
@@ -31,7 +32,8 @@ class IndexController extends Controller
             'featuredItemsChunk',
             'featuredItemsCount',
             'getImageSection',
-            'newProducts'
+            'newProducts',
+            'bestSale'
         ));
     }
 }
